@@ -5,6 +5,7 @@ Tags:
 - reviews
 Announce: fedi
 
+Fedi: https://fed.interfree.ca/notes/apwvtz4nt3xpz505
 ---
 
 Note: this article marks the first test of an entirely new publishing process for my blog. It's possible things are deeply, deeply broken. Sorry about that!
