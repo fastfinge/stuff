@@ -1,0 +1,24 @@
+Title: An aborted journey into accessible flight simulation
+Published: 2025-06-22
+Tags:
+- reviews
+Lead: It's been quiet here for a couple of weeks because a project I was hoping to begin fell through.
+Fedi: https://fed.interfree.ca/notes/a9b94kwy7pmb0z02
+---
+Updade: I heard back from talking flight monitor about eight hours after publishing this post. They sent a dropbox link to download the software; unfortunately, I get a message that says I don't have permission to access the content when clicking it.  They also let me know that they can't send email to iCloud for whatever reason.  
+
+As someone on the outskirts of the blind gaming community, the idea that with a few addons I could have an accessible flight simulator, is something I've always been aware of.  But it always looked far too complicated to get into.  But now that the latest version of Microsoft Flight Simulator has a screen reader that will allow me to use the menus and file a flight plan, I thought I'd give it a try.  
+
+Unfortunately, the primary addon required, called [Talking Flight Monitor](https://www.talkingflightmonitor.com) has transitioned from open source to a commercial product. While I don't object to paying, the monthly subscription is quite expensive; at $10 per month, a year of this one addon will wind up costing more than a Jaws For Windows subscription.  But what the heck? I'm lucky enough to be in a place where I have the money. So why not support accessibility?  
+
+Unfortunately, this is where the problems started.  After making my purchase, I received no confirmation email what so ever.  After investigating, I discovered I had an alert on my dashboard saying I had been sent a link to change my temporary password.  I checked my junk mail folder...nothing. I triple checked my email address...it was correct.  I re-sent the link...nothing.  Oh well, I figured.  I'm logged in for now; surely I can just get my license key and download and be on my way.  
+
+Nope! While I had a license key, the website said there are "no downloads available".  I figured maybe this was a manual process, so I waited a few hours. But I refreshed the page, and there was no change.  Confusingly, there are two different support portals linked. One requires creation of a new account, but errors out when you try. The other works with my existing account, so that's what I used.  I reached out, asking how to download the software I had purchased.  I heard back from an individual by the name of Andy Borka, instructing me to check the two obvious  places I had already checked.  This entire thing was made slower and less convenient by the fact that the talking flight monitor website can't send emails at all. So the only way for me to see if my ticket had been answered was to refresh the page every few hours.  
+
+When I attempted to respond to the ticket, I discovered the next problem. While the website had an edit box for me to type my reply, there was no send button anywhere to be found.  The only way to answer was to create an entirely new ticket!  After doing so, and saying that I had checked both places, Mr. Borka said he was looking into it.  Three days later, he responded saying the website had no technical problems, and asking me if I had even purchased a license key at all.  This was more than a little unusual, as every support ticket requires me to provide the order number I was referencing.  
+
+At this point, unable to receive any emails at all from the website, and unable to correctly reply to tickets, the idea that Mr. Borka could find no technical problems had me more than a little bit frustrated.  I sent a firmly worded message requiring that either the software, or a refund, be provided.  And as of writing, that's where things stand. I also provided my license key, and screenshots of the broken website with no available downloads.
+
+I dislike calling people out, and putting small one-man businesses publicly on blast.  However, if you're selling a product at a premium price, having a website who's email system doesn't work, a ticketing system that doesn't work correctly, another, different support system that doesn't work at all, a purchase processing system that doesn't provide the downloads after purchase, and then taking three days to say you have no technical problems, is...not okay.  It also gives me strong worries about the quality of the software itself, if the purchase process is this poor.  On top of that, no demo is provided to soothe these fears.  
+
+Thankfully, I should be able to get a refund of Microsoft Flight Simulator itself, as I obviously haven't played it at all.  As for what will happen with talking flight monitor? Who knows!  

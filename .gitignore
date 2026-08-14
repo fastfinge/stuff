@@ -1,0 +1,18 @@
+# Build artifacts
+bin/
+obj/
+
+# Statiq working directories
+cache/
+temp/
+output/
+
+# Downloaded by AddThemeFromUri at build time
+theme/
+
+# Editor / OS
+*.user
+.vs/
+.vscode/
+Thumbs.db
+.DS_Store

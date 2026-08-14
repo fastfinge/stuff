@@ -1,0 +1,13 @@
+Host: stuff.interfree.ca
+LinksUseHttps: true
+SiteTitle: Sam's Stuff
+SiteDescription: This is the place where all of my, well, stuff will be collected.
+Copyright: Creative Commons 0
+PostSources: "posts/**/**/**/**/*"
+GenerateSearchIndex: true
+CommentEngine: "fediverse"
+MirrorResources: true
+OptimizeDataFileNames: true
+OptimizeContentFileNames: true
+LinkHideExtensions: false
+WebFingerAliasFromTemplate: "@fastfinge@fed.interfree.ca"

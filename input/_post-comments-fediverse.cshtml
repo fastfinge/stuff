@@ -1,0 +1,19 @@
+<h2>Comments</h2>
+<p>Participate in the discussion: reply to <a href="@Document.GetString("Fedi")">this post on the fediverse.</a></p>
+<div
+  class="fediverse-comments"
+  data-responses-to-url=@Document.GetString("Fedi")
+   data-hide-root-comment="true"></div>
+<h2>Likes</h2>
+<div
+  class="fediverse-favourites-list"
+  data-favourited-url="@Document.GetString("Fedi")"
+></div>
+<h2>Reposts</h2>
+<div
+  class="fediverse-reblogged-list"
+  data-reblogged-url="@Document.GetString("Fedi")"
+></div>
+<script src="/js/fediverse-comments.js"></script>
+<h2>Webmentions</h2>
+<div id="webmentions"></div> 

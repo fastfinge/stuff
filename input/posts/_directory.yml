@@ -1,0 +1,1 @@
+DestinationPath: => $"{Document.GetDateTime("Published").ToString("yyyy")}/{Document.GetDateTime("Published").ToString("MM")}/{Document.GetDateTime("Published").ToString("dd")}/{Document.Destination.FileNameWithoutExtension}.html"

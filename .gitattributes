@@ -1,0 +1,20 @@
+# Normalise text to LF in the repository; check out native on Windows.
+* text=auto
+
+*.cs   text diff=csharp
+*.md   text
+*.yml  text
+*.yaml text
+*.cshtml text
+*.css  text
+*.scss text
+*.js   text
+*.html text
+
+# Never touch these.
+*.woff2 binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary

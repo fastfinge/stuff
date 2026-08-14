@@ -1,0 +1,63 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  # Rebuild daily so the linkblog on /pages/links.html stays current
+  # without needing anyone at a keyboard.
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+
+# Never let two deploys race each other onto the server.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build site
+        run: dotnet run --configuration Release
+
+      # Fail loudly rather than syncing an empty directory over the live site.
+      - name: Sanity check output
+        run: |
+          test -f output/index.html || { echo "No index.html produced"; exit 1; }
+          count=$(find output -name '*.html' | wc -l)
+          echo "Built $count HTML pages"
+          test "$count" -ge 20 || { echo "Suspiciously few pages; refusing to deploy"; exit 1; }
+
+      - name: Install rclone
+        if: github.event_name != 'pull_request'
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Deploy to interfree.ca
+        if: github.event_name != 'pull_request'
+        env:
+          RCLONE_CONFIG_INTERFREE_TYPE: sftp
+          RCLONE_CONFIG_INTERFREE_HOST: interfree.ca
+          RCLONE_CONFIG_INTERFREE_USER: fastfinge
+          RCLONE_CONFIG_INTERFREE_KEY_FILE: /tmp/deploy_key
+          RCLONE_CONFIG_INTERFREE_KNOWN_HOSTS_FILE: /tmp/known_hosts
+          RCLONE_CONFIG_INTERFREE_SHELL_TYPE: unix
+          RCLONE_CONFIG_INTERFREE_MD5SUM_COMMAND: md5sum
+          RCLONE_CONFIG_INTERFREE_SHA1SUM_COMMAND: sha1sum
+        run: |
+          install -m 600 /dev/null /tmp/deploy_key
+          echo "${{ secrets.SFTP_KEY }}" > /tmp/deploy_key
+          echo "${{ secrets.SFTP_KNOWN_HOSTS }}" > /tmp/known_hosts
+          # --max-delete guards against a bad build wiping the live site.
+          rclone sync output interfree:stuff/output \
+            --checksum \
+            --max-delete 50 \
+            --stats-one-line \
+            --verbose
+          rm -f /tmp/deploy_key

@@ -1,0 +1,64 @@
+/* lora-regular - cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/js/fonts/lora-v35-cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lora-italic - cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  src: url('/js/fonts/lora-v35-cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese-italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lora-500 - cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/js/fonts/lora-v35-cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lora-500italic - cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 500;
+  src: url('/js/fonts/lora-v35-cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese-500italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lora-600 - cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/js/fonts/lora-v35-cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lora-600italic - cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 600;
+  src: url('/js/fonts/lora-v35-cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese-600italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lora-700 - cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/js/fonts/lora-v35-cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* lora-700italic - cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 700;
+  src: url('/js/fonts/lora-v35-cyrillic_cyrillic-ext_latin_latin-ext_math_symbols_vietnamese-700italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
