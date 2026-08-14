@@ -1,0 +1,71 @@
+ShowInNavbar: => GetInt("Index") <= 1
+Order: 99
+IsPostArchive: true
+Title: Posts
+ArchiveSources: => GetString("PostSources")
+ArchiveFilter: => GetBool("IsPost")
+ArchiveOrderKey: Published
+ArchiveOrderDescending: true
+ArchiveDestination: >
+  => GetInt("Index") <= 1 ? $"posts/index.html" : $"posts/page/{GetInt("Index")}.html"
+ArchiveTitle: => GetString("Title")
+---
+@*
+  Local override of the theme's full post archive. It is a copy of the theme
+  file with microformats classes added: this page is the h-feed (opened in
+  _layout.cshtml, so that the masthead "Posts" heading becomes its p-name) and
+  each entry below is an h-entry.
+
+  It does not use _post.cshtml, which is why the markup is repeated here rather
+  than inherited -- this archive groups by year and shows no excerpts.
+
+  Compare against theme/main/CleanBlog-main/input/posts/index.cshtml before
+  editing. Note also _directory.yml in this folder: the IsPostArchive flag above
+  is what keeps this page at a stable URL.
+*@
+@foreach(IGrouping<int, IDocument> group in Document
+                                            .GetChildren()
+                                            .GroupBy(x => x.GetDateTime(WebKeys.Published).Year)
+                                            .OrderByDescending(x => x.Key))
+{
+  <h1 class="bg-dark text-light p-2">@group.Key</h1>
+  foreach (IDocument post in group)
+  {
+    DateTime published = post.GetDateTime(WebKeys.Published);
+    string publishedValue = published.TimeOfDay == TimeSpan.Zero
+      ? published.ToString("yyyy-MM-dd")
+      : published.ToString("yyyy-MM-ddTHH:mm:ssK");
+
+    <div class="post-preview h-entry">
+      <h3 class="post-title"><a class="u-url p-name" href="@Context.GetLink(post)">@post.GetTitle()</a></h3>
+      @if(post.ContainsKey("Lead"))
+      {
+        <div class="post-subtitle p-summary">@post.GetString("Lead")</div>
+      }
+      <p class="post-meta">Published on <time class="dt-published" datetime="@publishedValue">@published.ToLongDateString(Context)</time></p>
+    </div>
+  }
+}
+
+@{
+  IDocument newer = Model.GetDocument(Keys.Previous);
+  IDocument older = Model.GetDocument(Keys.Next);
+}
+@if (older != null || newer != null)
+{
+  <div>
+    <div class="float-sm-start">
+      @if (newer != null)
+      {
+        <a class="btn btn-primary" href="@Context.GetLink(newer)" role="button"><i class="fas fa-angle-double-left"></i> Newer</a>
+      }
+    </div>
+    <div class="float-sm-end">
+      @if (older != null)
+      {
+        <a class="btn btn-primary" href="@Context.GetLink(older)" role="button">Older <i class="fas fa-angle-double-right"></i></a>
+      }
+    </div>
+    <div class="clearfix"></div>
+  </div>
+}

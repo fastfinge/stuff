@@ -6,7 +6,7 @@ Tags:
 Image: img/fe5e07aacbd0a21b8450caad785aa99d.png
 Fedi: https://fed.interfree.ca/notes/a6o4iheph4pphycg
 ---
-<iframe frameborder="0" width="165" height="400" src="https://openlibrary.org/works/OL42459359W/Bee-Ginning/widget"></iframe>
+<?# Book OL42459359W /?>
 
 You should have been warned by the name: "stuff" is a perfectly accurate representation of what this is. Thus far, we've had a review of a router, articles about AI, and thoughts on accessibility.  There's probably a review of a meet thermometer coming up in the near future; obviously, the key to gaining readers is to publish random articles on subject matter so diverse that nobody in the world could care about all of it.  
 

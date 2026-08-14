@@ -1,1 +1,1 @@
-<iframe frameborder="0" width="165" height="400" src="widget"></iframe>
+<iframe frameborder="0" width="165" height="400" src="https://openlibrary.org/works/OL42557111W/New_Dawn/widget"></iframe>

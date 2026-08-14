@@ -1,0 +1,25 @@
+@*
+  Syndication links, rendered inside the h-entry but outside its e-content:
+  they are facts about the post, not part of it.
+
+  This is the publisher half of original-post-discovery. announce.ps1 posts a
+  copy to each network and writes the copy's URL back into the front matter; this
+  turns that into u-syndication, which tells anyone who finds the copy that this
+  page is the original. The key names deliberately match announce.ps1's target
+  table, so adding a network there and adding a row here is the whole job.
+*@
+@{
+  var syndications = new (string Key, string Label)[]
+  {
+    ("Fedi", "the fediverse"),
+  };
+
+  var present = syndications
+    .Select(s => (s.Label, Url: Document.GetString(s.Key)))
+    .Where(s => !string.IsNullOrWhiteSpace(s.Url))
+    .ToArray();
+}
+@foreach ((string label, string url) in present)
+{
+  <p class="entry-syndication">Also posted on <a class="u-syndication" rel="syndication" href="@url">@label</a>.</p>
+}

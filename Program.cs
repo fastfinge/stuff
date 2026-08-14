@@ -11,4 +11,10 @@ await Bootstrapper
     .AddWeb()
         .AddPipeline<WellKnownFolderPipeline>()
         .AddShortcode<LinkBlogShortcode>("LinkBlog")
+        .AddShortcode<BookShortcode>("Book")
+        // Statiq's feed generator knows nothing about WebSub and writes a
+        // rel="self" pointing at the site root, and offers no hook for either.
+        // Appending to the Feeds pipeline lets the finished XML be corrected on
+        // its way out. See WebSubLinks.cs.
+        .ModifyPipeline("Feeds", pipeline => pipeline.ProcessModules.Add(new WebSubLinks()))
     .RunAsync();

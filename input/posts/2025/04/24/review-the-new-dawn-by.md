@@ -5,7 +5,7 @@ Tags:
 - reviews
 Fedi: https://fed.interfree.ca/notes/a70gsp0p6a31qpd6
 ---
-<iframe frameborder="0" width="165" height="400" src="https://openlibrary.org/works/OL42557111W/New_Dawn/widget"></iframe>
+<?# Book OL42557111W /?>
 
 First off, this is book 5 in the Terminate The Other World series. As with most litrpg series, you can't just jump in; you need to start from book 1, and go in that order.  If you've never read the series, I highly recommend it so long as you don't mind lengthy stat sheets in the first three books.  The books are well written and funny, and <span itemprop="readBy">[Savy Des-Etages](https://soundofsavy.com)</span> is easily one of my favourite audiobook narrators.  In short, what happens when a cyborg terminator from a futuristic world is transported into a middle-ages world of stats and technology?  Read all five books to find out!  
 </span>

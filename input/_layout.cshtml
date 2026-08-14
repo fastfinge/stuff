@@ -3,6 +3,20 @@
 @{
   var isPost = Document.GetBool("IsPost") && !Document.GetBool("IsPostArchive");
   var isPage = Document.GetBool("IsPage");
+
+  // An archive page -- the home page, /posts, or a tag -- is an h-feed whose
+  // children are h-entry previews. Rather than flag each of those templates,
+  // detect the shape: an archive is the only kind of page whose children are
+  // posts. The tag index fails this test, correctly: it lists tags, not posts.
+  var isFeed = !isPost && Document.GetChildren().Any(x => x.GetBool("IsPost"));
+
+  // Both microformats roots have to open before the masthead, because the
+  // masthead is where the name, summary, date and tags are. They are emitted as
+  // raw strings because Razor requires balanced markup inside a code block and
+  // these two tags are not balanced within one.
+  var (rootTag, rootClass) = isPost ? ("article", "h-entry")
+                           : isFeed ? ("div", "h-feed")
+                           : (null, null);
 }
 
 <head>
@@ -37,14 +51,33 @@
   <meta name="msapplication-tooltip" content='@Document.GetString("SiteTitle")' />
   <meta name="msapplication-starturl" content='@Context.GetLink("/")' />
 
-  @* TODO: More social graph meta tags *@
+  @* Open Graph. Beyond the social previews, these are what metaformats parsing
+     falls back to when a consumer finds no microformats -- so og:type has to
+     tell the truth about whether this page is an article. *@
   <meta property="og:title" content='@Document.GetString("PageTitle")' />
+  @if (Document.ContainsKey(WebKeys.Description))
+  {
+    <meta property="og:description" content='@Document.GetString(WebKeys.Description)' />
+  }
   @if (Document.ContainsKey(WebKeys.Image))
   {
     <meta property="og:image" content='@Context.GetLink(Document.GetString(WebKeys.Image))' />
   }
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content='@(isPost ? "article" : "website")' />
   <meta property="og:url" content='@Document.GetLink(true)' />
+  <meta property="og:site_name" content='@Document.GetString("SiteTitle")' />
+  @if (isPost)
+  {
+    <meta property="article:published_time" content='@Document.GetDateTime(WebKeys.Published).ToString("yyyy-MM-ddTHH:mm:ssK")' />
+    @if (Document.ContainsKey(WebKeys.Author))
+    {
+      <meta property="article:author" content='@Document.GetString(WebKeys.Author)' />
+    }
+    @foreach (string tag in Document.GetList<string>("Tags") ?? Array.Empty<string>())
+    {
+      <meta property="article:tag" content="@tag" />
+    }
+  }
 
   <link rel="icon" href='@Context.GetLink("/favicon.ico")'>
 
@@ -56,10 +89,21 @@
   <!-- Styles for this template (also includes Bootstrap) -->
   <link href='@Context.GetLink("/scss/clean-blog.css")' rel="stylesheet">
 
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css" rel="stylesheet">
+  @* Served from here rather than from jsdelivr. The theme points these at the
+     CDN and relies on MirrorResources to pull them local at build time, but that
+     module round-trips every page through an HTML parser and the round-trip
+     double-encodes entities in attributes -- turning a & in a link into &amp;,
+     and Sam's into Sam&#x27;s in the og: tags. Vendoring the files means
+     MirrorResources has nothing to rewrite and can stay off. See input/js/vendor. *@
+  <script src="/js/vendor/prism-core.min.js"></script>
+  @* data-autoloader-path is Prism's own way of being told where the language
+     grammars live. Without it the autoloader guesses from its own script URL and
+     would look in /js/vendor/components/, which is not where they are. It fetches
+     one grammar per language actually used on the page, so nothing is downloaded
+     for a page with no code on it. *@
+  <script src="/js/vendor/prism-autoloader.min.js" data-autoloader-path="/js/vendor/prism-components/"></script>
+  <script src="/js/vendor/quicklink.umd.js"></script>
+  <link href="/js/vendor/prism.css" rel="stylesheet">
 
   @Html.Partial("_head")
 
@@ -72,14 +116,30 @@
   <!-- Navigation -->
   @RenderSectionOrPartial("Navigation", "_navigation")
 
+  @if (rootTag != null)
+  {
+    @Html.Raw($"<{rootTag} class=\"{rootClass}\">")
+  }
+
   <!-- Page Header -->
   @RenderSectionOrPartial("Header", "_header")
 
   <!-- Main Content -->
   <div class="container">
     <div class="row">
-      <div id="content" class="col-md-12 h-entry e-content" role="main">
+      <div id="content" class="col-md-12" role="main">
+        @* e-content is the post body only. It deliberately excludes the
+           syndication links below it, which are about the post rather than
+           part of it. *@
+        @if (isPost)
+        {
+          @Html.Raw("<div class=\"e-content\">")
+        }
         @RenderBody()
+        @if (isPost)
+        {
+          @Html.Raw("</div>")
+        }
         @if (isPost)
         {
           @Html.Partial("_post-after-content")
@@ -91,11 +151,23 @@
         @Html.Partial("_common-after-content")
       </div>
     </div>
-    @if (isPost)
-    {
-      @Html.Partial("_post-comments")
-    }
   </div>
+
+  @if (rootTag != null)
+  {
+    @Html.Raw($"</{rootTag}>")
+  }
+
+  @* Comments sit outside the h-entry on purpose. They are other people's posts
+     replying to this one; inside the entry a parser would read them as this
+     post's own content. They get their own container so the h-entry closes
+     without leaving an element open across it. *@
+  @if (isPost)
+  {
+    <div class="container">
+      @Html.Partial("_post-comments")
+    </div>
+  }
 
   <hr>
 <div role="contentinfo">

@@ -1,0 +1,46 @@
+@*
+  Local override of the theme's post preview, used by the home page and by each
+  tag page. The only change is microformats: each preview is an h-entry child of
+  the h-feed that _layout.cshtml opens around the page.
+
+  There is no p-author here. The authorship algorithm falls back to the page's
+  rel=author, which points at the home page and its representative h-card, so
+  repeating the same name on every preview would add markup and no information.
+
+  Compare against theme/main/CleanBlog-main/input/_post.cshtml before editing.
+*@
+@model IDocument
+
+@{
+  string excerpt = Model.GetString(Keys.Excerpt);
+  bool hasLead = Model.ContainsKey("Lead");
+  DateTime published = Model.GetDateTime(WebKeys.Published);
+  string publishedValue = published.TimeOfDay == TimeSpan.Zero
+    ? published.ToString("yyyy-MM-dd")
+    : published.ToString("yyyy-MM-ddTHH:mm:ssK");
+}
+
+<div class="post-preview h-entry">
+  <h2 class="post-title"><a class="u-url p-name" href="@Context.GetLink(Model)">@Model.GetTitle()</a></h2>
+  @if(hasLead)
+  {
+    <div class="post-subtitle p-summary">@Model.GetString("Lead")</div>
+  }
+  <p class="post-meta">Published on <time class="dt-published" datetime="@publishedValue">@published.ToLongDateString(Context)</time></p>
+  @if (!string.IsNullOrEmpty(excerpt))
+  {
+    @* The excerpt is only the first paragraph, so it is a summary and not
+       e-content. It is left unmarked when there is already a Lead, because an
+       h-entry with two p-summary values is worse than one with the better of
+       the two. *@
+    if (hasLead)
+    {
+      @Html.Raw(excerpt)
+    }
+    else
+    {
+      <div class="p-summary">@Html.Raw(excerpt)</div>
+    }
+    <p class="small"><a href="@Context.GetLink(Model)">Read more...</a></p>
+  }
+</div>

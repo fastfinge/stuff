@@ -68,4 +68,31 @@ Write-Host "==> Syncing to interfree.ca$(if ($DryRun) { ' (dry run)' })" -Foregr
 rclone @rcloneArgs
 if ($LASTEXITCODE -ne 0) { throw "rclone failed with exit code $LASTEXITCODE" }
 
+# Tell the WebSub hub the feeds changed, so subscribers hear about a new post in
+# seconds rather than whenever they next poll. This has to come after the sync:
+# the hub fetches the feed immediately, and would cache the old one otherwise.
+# A hub having a bad day is not a reason to call a finished deploy a failure.
+if (-not $DryRun) {
+    $settings = [System.IO.File]::ReadAllText((Join-Path $PSScriptRoot 'settings.yml'))
+    $hub = if ($settings -match '(?m)^WebSubHub:\s*(.+)$') { $Matches[1].Trim() } else { $null }
+    $siteHost = if ($settings -match '(?m)^Host:\s*(.+)$') { $Matches[1].Trim() } else { $null }
+    $scheme = if ($settings -match '(?m)^LinksUseHttps:\s*true') { 'https' } else { 'http' }
+
+    if ($hub -and $siteHost) {
+        Write-Host '==> Pinging the WebSub hub' -ForegroundColor Cyan
+        # Only the two feeds that carry a rel=hub link; the hub verifies that.
+        foreach ($feed in @('feed.rss', 'feed.atom')) {
+            $topic = "${scheme}://${siteHost}/$feed"
+            try {
+                Invoke-WebRequest -Uri $hub -Method Post -TimeoutSec 30 `
+                    -Body @{ 'hub.mode' = 'publish'; 'hub.url' = $topic } | Out-Null
+                Write-Host "    published $topic"
+            }
+            catch {
+                Write-Warning "WebSub ping for $topic failed: $($_.Exception.Message)"
+            }
+        }
+    }
+}
+
 Write-Host '==> Done' -ForegroundColor Green

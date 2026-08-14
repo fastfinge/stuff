@@ -1,15 +1,60 @@
+@* IndieWeb protocol discovery. Everything here is a <link rel>, which is how
+   every IndieWeb protocol is found: a consumer fetches a page from this site and
+   reads these to learn where to send things. See the IndieWeb section of
+   README.md for what each one buys and what it deliberately leaves out. *@
 
-<meta name="author" content="Samuel Proulx">
+@{
+  // rel -> settings key. An empty or missing setting produces no link at all,
+  // so a service can be dropped by deleting its line from settings.yml.
+  var protocolLinks = new (string Rel, string Key)[]
+  {
+    // IndieAuth: delegated to indieauth.com, which signs people in as their own
+    // domain by checking rel=me both ways. Modern clients look for a
+    // rel=indieauth-metadata document first and fall back to these two; there is
+    // no metadata document here because its issuer field has to name the
+    // authorization server, and this site is not the authorization server.
+    ("authorization_endpoint", "AuthorizationEndpoint"),
+    ("token_endpoint", "TokenEndpoint"),
+
+    // Webmention, plus the older Pingback for software that never learned it.
+    ("webmention", "WebmentionEndpoint"),
+    ("pingback", "PingbackEndpoint"),
+
+    // WebSub: a subscriber holding nothing but this page's URL can still find
+    // the hub. The feeds carry the same pair, added by WebSubLinks.cs.
+    ("hub", "WebSubHub"),
+  };
+}
+
+@foreach ((string rel, string key) in protocolLinks)
+{
+  string href = Context.GetString(key);
+  if (!string.IsNullOrWhiteSpace(href))
+  {
+    <link rel="@rel" href="@href">
+  }
+}
+
+@* rel=me, the whole basis of IndieAuth: these say the accounts are mine, and
+   each one links back here to say this site is theirs. *@
+@foreach (string me in Context.GetList<string>("RelMe") ?? Array.Empty<string>())
+{
+  <link rel="me" href="@me">
+}
+
+@* Authorship: a consumer that finds a post here follows this to the home page
+   and reads the representative h-card in the footer. Posts also carry an
+   explicit p-author, so this is the fallback rather than the only route. *@
+<link rel="author" href='@Context.GetLink("/", true)'>
+
+@* WebSub again: the topic URL a subscriber would hand to the hub for this page. *@
+<link rel="self" href="@Document.GetLink(true)">
+
 <meta name="generator" content="Statiq">
-<link rel="me" href="mailto:samuel@interfree.ca"/>
-<link href="https://github.com/fastfinge" rel="me"/>
-<link rel="pingback" href="https://webmention.io/stuff.interfree.ca/xmlrpc" />
-<link
-    rel="webmention"
-    href="https://webmention.io/stuff.interfree.ca/webmention"
-/>
-<script src="/js/webmention.min.js" async></script> 
-<script src="/js/parse.js"> </script> 
+
+<script src="/js/webmention.min.js" async></script>
+<script src="/js/parse.js"> </script>
+<script src="/js/fragmention.js" defer></script>
     <style>
     .comment-authors-avatar img {
   width: 50px;
@@ -24,4 +69,63 @@
   object-fit: cover;
 }
 
+/* Book shortcode. flex-wrap rather than a breakpoint, so the cover drops above
+   the details on a narrow screen or at a large text size without a media query. */
+.booksnip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem 1.25rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-left: 0.25rem solid #adb5bd;
+}
+.booksnip-cover img {
+  display: block;
+  width: 9.375rem;
+  max-width: 100%;
+  height: auto;
+}
+.booksnip-detail {
+  flex: 1 1 14rem;
+}
+.booksnip-detail > :first-child { margin-top: 0; }
+.booksnip-detail > :last-child { margin-bottom: 0; }
+.booksnip-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+.booksnip-title cite { font-style: italic; }
+.booksnip-byline { margin-bottom: 0.25rem; }
+.booksnip-meta {
+  font-size: 0.875rem;
+  color: #495057;
+}
+
+/* Reply/like/repost context above a post, and the syndication links below it.
+   Both are ordinary prose, styled down so they read as metadata rather than as
+   part of the post. */
+.entry-context,
+.entry-syndication {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+.entry-syndication {
+  margin-top: 2rem;
+  color: #495057;
+}
+
+/* The footer h-card. Sizing of the photo is left to the inline style it has
+   always had, so this only separates the card from the copyright line above. */
+.author-card {
+  margin-top: 1rem;
+}
+
+/* Fragmention target: the run of text a #fragmention URL pointed at. outline
+   rather than colour alone, so it survives a high contrast theme. */
+mark.fragmention-target {
+  outline: 0.125rem solid currentColor;
+  outline-offset: 0.125rem;
+}
 </style>

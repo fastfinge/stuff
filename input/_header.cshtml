@@ -1,0 +1,132 @@
+@*
+  Local override of the theme's masthead.
+
+  The only reason this file is overridden is microformats. The h-entry (a post)
+  and the h-feed (an archive) both open in _layout.cshtml just before this
+  partial, because the name, summary, date, author and tags a parser needs are
+  all here in the masthead rather than down in the content. Everything below is
+  the theme's markup plus the class attributes that make those readable, and the
+  reply/like/repost context, which is the one thing genuinely added.
+
+  Compare against theme/main/CleanBlog-main/input/_header.cshtml before editing.
+*@
+@{
+  string mastheadStyle = null;
+  string mastheadClass = null;
+  var image = Document.GetString(WebKeys.Image, string.Empty);
+  if (string.IsNullOrEmpty(image))
+  {
+    mastheadClass="masthead no-image";
+  }
+  else
+  {
+    mastheadClass="masthead";
+    mastheadStyle = $"background-image: url(\"{Context.GetLink(image)}\")";
+  }
+  string description = Document.WithoutSettings().GetString("Lead") ?? Document.WithoutSettings().GetString(WebKeys.Description);
+  string title = Document.GetString("Title") ?? Document.GetString("SiteTitle");
+  bool isPost = Document.GetBool("IsPost") && !Document.GetBool("IsPostArchive");
+  bool isPage = Document.GetBool("IsPage");
+  var imageAttribution = Document.GetString("ImageAttribution", string.Empty);
+  var hasImageAttribution = !string.IsNullOrEmpty(imageAttribution);
+
+  // Kept in step with the same test in _layout.cshtml, which decides whether an
+  // h-feed was opened around this masthead.
+  bool isFeed = !isPost && Document.GetChildren().Any(x => x.GetBool("IsPost"));
+
+  // p-name is the name of whichever root is open: the post's title, or the
+  // feed's title. On a page that is neither it is simply left off.
+  string nameClass = (isPost || isFeed) ? "p-name" : null;
+
+  // post-type-discovery. A post carrying one of these is a reply, like, repost
+  // or bookmark rather than an article, and the u-* class is what makes that
+  // discoverable. The optional companion key (InReplyToName and friends) is the
+  // link text; without it the URL itself is the link text, which is still more
+  // use to a screen reader than "this".
+  var responses = new (string Key, string Class, string Label)[]
+  {
+    ("InReplyTo",  "u-in-reply-to", "In reply to"),
+    ("LikeOf",     "u-like-of",     "Liked"),
+    ("RepostOf",   "u-repost-of",   "Reposted"),
+    ("BookmarkOf", "u-bookmark-of", "Bookmarked"),
+  };
+}
+<header class="@mastheadClass" style="@mastheadStyle">
+  <div class="container position-relative">
+    <div class="row">
+      <div class="col-md-12">
+        <div class='@(isPost ? "post-heading" : isPage ? "page-heading" : "site-heading")'>
+          <h1>
+            <span class="@nameClass">@title</span>
+            @if (Document.GetInt(Keys.Index) > 1)
+            {
+              <small>(Page @Document.GetString(Keys.Index))</small>
+            }
+          </h1>
+          @if (!string.IsNullOrEmpty(description))
+          {
+            <span class='subheading@(isPost ? " p-summary" : null)'>@description</span>
+          }
+          @if (isPost)
+          {
+            // This is a blog post so show extra data
+            @foreach ((string key, string mfClass, string label) in responses)
+            {
+              foreach (string target in Document.GetList<string>(key) ?? Array.Empty<string>())
+              {
+                if (string.IsNullOrWhiteSpace(target))
+                {
+                  continue;
+                }
+                string linkText = Document.GetString(key + "Name", target);
+                <p class="entry-context">@label <a class="@mfClass" href="@target">@linkText</a></p>
+              }
+            }
+
+            DateTime published = Document.GetDateTime(WebKeys.Published);
+            // Posts carry a date and no time, so publishing T00:00:00Z would be
+            // claiming a precision the front matter does not have.
+            string publishedValue = published.TimeOfDay == TimeSpan.Zero
+              ? published.ToString("yyyy-MM-dd")
+              : published.ToString("yyyy-MM-ddTHH:mm:ssK");
+
+            <div class="meta">
+              @* The date doubles as the permalink, which is how the entry gets a
+                 u-url without an invisible element holding it. *@
+              Published on <a class="u-url u-uid" href="@Context.GetLink(Document)"><time class="dt-published" datetime="@publishedValue">@published.ToLongDateString(Context)</time><span class="visually-hidden"> (permalink)</span></a>
+              @if (Document.ContainsKey(WebKeys.Author))
+              {
+                @* p-author here rather than only rel=author in the head, so a
+                   parser reading this one page never has to fetch another. *@
+                <text>by</text> <a class="p-author h-card" href='@Context.GetLink("/", true)'>@Document.GetString(WebKeys.Author)</a>
+              }
+            </div>
+            @if (Document.ContainsKey("Updated"))
+            {
+              DateTime updated = Document.GetDateTime("Updated");
+              string updatedValue = updated.TimeOfDay == TimeSpan.Zero
+                ? updated.ToString("yyyy-MM-dd")
+                : updated.ToString("yyyy-MM-ddTHH:mm:ssK");
+              <div class="meta">Updated on <time class="dt-updated" datetime="@updatedValue">@updated.ToLongDateString(Context)</time></div>
+            }
+            @if (Document.ContainsKey("Tags"))
+            {
+              <div class="mt-3">
+                @foreach (IDocument tag in Document.GetList<string>("Tags")
+                  .Select(x => Outputs["tags/index.html"].First().GetChildren().FirstOrDefault(y => y.GetTitle().Equals(x, StringComparison.OrdinalIgnoreCase)))
+                  .Where(x => x != null))
+                {
+                  <a href="@Context.GetLink(tag)" class="p-category badge text-bg-light"> @tag.GetTitle()</a>
+                }
+              </div>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  @if (hasImageAttribution)
+  {
+    <div class="image-attribution badge text-bg-secondary rounded-pill"><?# Markdown ?>@Html.Raw(imageAttribution)<?#/ Markdown ?></div>
+  }
+</header>

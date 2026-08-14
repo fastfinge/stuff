@@ -14,11 +14,34 @@ concurrency:
   group: deploy
   cancel-in-progress: false
 
+# The announce step commits the fediverse post URLs back to the repo.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      # Both sync steps read these, so they live at job level. The guards in
+      # RCLONE_FLAGS must stay identical to the ones in deploy.ps1: --max-delete
+      # keeps a bad build from gutting the live site.
+      RCLONE_FLAGS: --checksum --max-delete 50 --stats-one-line --verbose
+      RCLONE_CONFIG_INTERFREE_TYPE: sftp
+      RCLONE_CONFIG_INTERFREE_HOST: interfree.ca
+      RCLONE_CONFIG_INTERFREE_USER: fastfinge
+      RCLONE_CONFIG_INTERFREE_KEY_FILE: /tmp/deploy_key
+      RCLONE_CONFIG_INTERFREE_KNOWN_HOSTS_FILE: /tmp/known_hosts
+      RCLONE_CONFIG_INTERFREE_SHELL_TYPE: unix
+      RCLONE_CONFIG_INTERFREE_MD5SUM_COMMAND: md5sum
+      RCLONE_CONFIG_INTERFREE_SHA1SUM_COMMAND: sha1sum
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history: the announce step rebases onto main before pushing the
+          # fediverse URLs back, and a shallow clone cannot rebase.
+          fetch-depth: 0
 
       - uses: actions/setup-dotnet@v4
         with:
@@ -39,25 +62,114 @@ jobs:
         if: github.event_name != 'pull_request'
         run: curl -fsSL https://rclone.org/install.sh | sudo bash
 
-      - name: Deploy to interfree.ca
+      - name: Write deploy credentials
         if: github.event_name != 'pull_request'
-        env:
-          RCLONE_CONFIG_INTERFREE_TYPE: sftp
-          RCLONE_CONFIG_INTERFREE_HOST: interfree.ca
-          RCLONE_CONFIG_INTERFREE_USER: fastfinge
-          RCLONE_CONFIG_INTERFREE_KEY_FILE: /tmp/deploy_key
-          RCLONE_CONFIG_INTERFREE_KNOWN_HOSTS_FILE: /tmp/known_hosts
-          RCLONE_CONFIG_INTERFREE_SHELL_TYPE: unix
-          RCLONE_CONFIG_INTERFREE_MD5SUM_COMMAND: md5sum
-          RCLONE_CONFIG_INTERFREE_SHA1SUM_COMMAND: sha1sum
         run: |
           install -m 600 /dev/null /tmp/deploy_key
           echo "${{ secrets.SFTP_KEY }}" > /tmp/deploy_key
           echo "${{ secrets.SFTP_KNOWN_HOSTS }}" > /tmp/known_hosts
-          # --max-delete guards against a bad build wiping the live site.
-          rclone sync output interfree:stuff/output \
-            --checksum \
-            --max-delete 50 \
-            --stats-one-line \
-            --verbose
-          rm -f /tmp/deploy_key
+
+      - name: Deploy to interfree.ca
+        if: github.event_name != 'pull_request'
+        run: rclone sync output interfree:stuff/output $RCLONE_FLAGS
+
+      # Announcing has to come after the deploy: announce.ps1 refuses to post a
+      # URL that is not live yet, so that the link in the fediverse post -- which
+      # is permanent and cannot be edited -- always resolves.
+      #
+      # A post opts in with "Announce: fedi" in its front matter. Nothing else is
+      # touched, and a post that already has its Fedi: key is skipped, so this is
+      # a no-op on the daily schedule run.
+      - name: Announce new posts on the fediverse
+        if: github.event_name != 'pull_request'
+        id: announce
+        shell: pwsh
+        env:
+          FEDI_TOKEN: ${{ secrets.FEDI_TOKEN }}
+        run: |
+          if (-not $env:FEDI_TOKEN) {
+            Write-Host 'No FEDI_TOKEN secret set; skipping the announce step.'
+            'announced=false' >> $env:GITHUB_OUTPUT
+            exit 0
+          }
+          ./announce.ps1 -Publish
+          # announce.ps1 writes each resulting URL into the post's front matter,
+          # which is both what the comment widgets read and how it knows not to
+          # post the same thing twice. git diff rather than git status, so this
+          # sees only edits to tracked files and never a stray untracked one.
+          $changed = git diff --name-only -- input/posts
+          if ($changed) {
+            'announced=true' >> $env:GITHUB_OUTPUT
+          } else {
+            'announced=false' >> $env:GITHUB_OUTPUT
+          }
+
+      # If this push is lost the URLs are lost with it, and the next run posts
+      # duplicates -- so it retries, and on failure prints the URLs into the log
+      # where a human can recover them.
+      - name: Record the fediverse URLs
+        if: steps.announce.outputs.announced == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # -u: stage modifications to tracked files only, matching what the
+          # detection above looked for.
+          git add -u -- input/posts
+          # [skip ci] because this job redeploys below; without it the push would
+          # start a second, redundant run.
+          git commit -m 'Record fediverse post URLs from announce [skip ci]'
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying"
+            sleep 5
+          done
+          echo "::error::Could not push the fediverse URLs. They are in the diff below. Add them to the front matter by hand before the next run, or announce.ps1 will post duplicates."
+          git log -1 -p -- input/posts
+          exit 1
+
+      # The pages built before announcing had no Fedi: value, so their comment
+      # and reaction widgets and their u-syndication link are missing. Rebuild.
+      - name: Rebuild with the fediverse URLs
+        if: steps.announce.outputs.announced == 'true'
+        run: dotnet run --configuration Release
+
+      - name: Sanity check rebuilt output
+        if: steps.announce.outputs.announced == 'true'
+        run: |
+          test -f output/index.html || { echo "No index.html produced"; exit 1; }
+          count=$(find output -name '*.html' | wc -l)
+          echo "Rebuilt $count HTML pages"
+          test "$count" -ge 20 || { echo "Suspiciously few pages; refusing to deploy"; exit 1; }
+
+      - name: Redeploy to interfree.ca
+        if: steps.announce.outputs.announced == 'true'
+        run: rclone sync output interfree:stuff/output $RCLONE_FLAGS
+
+      # Mirrors the same step in deploy.ps1. After the sync, never before: the
+      # hub fetches the feed as soon as it is told, and would cache the old one.
+      # continue-on-error because a sulking hub has not broken the deploy.
+      - name: Ping the WebSub hub
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: |
+          hub=$(sed -n 's/^WebSubHub:[[:space:]]*//p' settings.yml | head -1)
+          site=$(sed -n 's/^Host:[[:space:]]*//p' settings.yml | head -1)
+          if [ -z "$hub" ] || [ -z "$site" ]; then
+            echo "No WebSubHub or Host in settings.yml; nothing to ping"
+            exit 0
+          fi
+          scheme=http
+          grep -q '^LinksUseHttps:[[:space:]]*true' settings.yml && scheme=https
+          for feed in feed.rss feed.atom; do
+            topic="$scheme://$site/$feed"
+            echo "publishing $topic"
+            curl -fsS -X POST "$hub" \
+              --data-urlencode 'hub.mode=publish' \
+              --data-urlencode "hub.url=$topic" || echo "ping for $topic failed"
+          done
+
+      - name: Remove deploy credentials
+        if: always()
+        run: rm -f /tmp/deploy_key /tmp/known_hosts

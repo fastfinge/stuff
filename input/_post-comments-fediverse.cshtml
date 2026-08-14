@@ -1,19 +1,34 @@
-<h2>Comments</h2>
-<p>Participate in the discussion: reply to <a href="@Document.GetString("Fedi")">this post on the fediverse.</a></p>
-<div
-  class="fediverse-comments"
-  data-responses-to-url=@Document.GetString("Fedi")
-   data-hide-root-comment="true"></div>
-<h2>Likes</h2>
-<div
-  class="fediverse-favourites-list"
-  data-favourited-url="@Document.GetString("Fedi")"
-></div>
-<h2>Reposts</h2>
-<div
-  class="fediverse-reblogged-list"
-  data-reblogged-url="@Document.GetString("Fedi")"
-></div>
-<script src="/js/fediverse-comments.js"></script>
+@*
+  The fediverse half of this only works once the post has been announced:
+  announce.ps1 posts it and writes the note's URL back as Fedi:. Until then
+  Document.GetString("Fedi") is empty, which used to render href="" -- a link
+  that looks like a link, is announced as a link, and silently reloads the page
+  -- plus three widgets pointed at nothing.
+
+  Webmentions do not depend on any of that, so they render either way.
+*@
+@{
+  string fedi = Document.GetString("Fedi");
+}
+@if (!string.IsNullOrWhiteSpace(fedi))
+{
+  <h2>Comments</h2>
+  <p>Participate in the discussion: reply to <a href="@fedi">this post on the fediverse.</a></p>
+  <div
+    class="fediverse-comments"
+    data-responses-to-url="@fedi"
+    data-hide-root-comment="true"></div>
+  <h2>Likes</h2>
+  <div
+    class="fediverse-favourites-list"
+    data-favourited-url="@fedi"
+  ></div>
+  <h2>Reposts</h2>
+  <div
+    class="fediverse-reblogged-list"
+    data-reblogged-url="@fedi"
+  ></div>
+  <script src="/js/fediverse-comments.js"></script>
+}
 <h2>Webmentions</h2>
-<div id="webmentions"></div> 
+<div id="webmentions"></div>

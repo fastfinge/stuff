@@ -6,7 +6,12 @@ Copyright: Creative Commons 0
 PostSources: "posts/**/**/**/**/*"
 GenerateSearchIndex: true
 CommentEngine: "fediverse"
-MirrorResources: true
+# MirrorResources is off, and the CDN assets the theme wants are vendored in
+# input/js/vendor instead. The module rewrites CDN URLs to local copies, but it
+# does it by round-tripping every page through an HTML parser, and that
+# round-trip double-encodes entities in attributes: a & in a link URL becomes
+# &amp;, and Sam's Stuff becomes Sam&#x27;s Stuff in the og: tags.
+MirrorResources: false
 OptimizeDataFileNames: true
 OptimizeContentFileNames: true
 LinkHideExtensions: false
@@ -15,3 +20,34 @@ LinkHideExtensions: false
 # Emit /posts/index.html instead of /posts.
 LinkHideIndexPages: false
 WebFingerAliasFromTemplate: "@fastfinge@fed.interfree.ca"
+
+# --- Identity ------------------------------------------------------------
+# Author is a Statiq key: it fills <meta name="author"> on every page and the
+# author element of the RSS and Atom feeds. The rest feed the h-card in the
+# footer, which is this site's representative h-card.
+Author: Samuel Proulx
+AuthorPhoto: /img/photo.jpg
+
+# --- IndieWeb ------------------------------------------------------------
+# rel=me. These are claims that the listed accounts are mine; they only become
+# proof once each account links back here, which is what an IndieAuth provider
+# checks before it will sign me in anywhere as https://stuff.interfree.ca/.
+# Add an account here only after adding the return link on the other end.
+RelMe:
+- https://fed.interfree.ca/@fastfinge
+- https://github.com/fastfinge
+- mailto:samuel@interfree.ca
+
+# Webmention. Receiving is delegated to webmention.io, which also serves them
+# back to js/webmention.min.js for display. Sending is webmention.ps1's job.
+WebmentionEndpoint: https://webmention.io/stuff.interfree.ca/webmention
+PingbackEndpoint: https://webmention.io/stuff.interfree.ca/xmlrpc
+
+# IndieAuth. A static site cannot run an authorization server, so these delegate
+# sign-in to indieauth.com, which authenticates by walking the RelMe links above.
+AuthorizationEndpoint: https://indieauth.com/auth
+TokenEndpoint: https://tokens.indieauth.com/token
+
+# WebSub. Advertised in the page head and injected into the feeds by
+# WebSubLinks.cs; deploy.ps1 pings it once the new feed is live.
+WebSubHub: https://pubsubhubbub.superfeedr.com/
