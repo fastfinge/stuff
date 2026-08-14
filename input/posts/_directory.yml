@@ -1,1 +1,12 @@
-DestinationPath: => $"{Document.GetDateTime("Published").ToString("yyyy")}/{Document.GetDateTime("Published").ToString("MM")}/{Document.GetDateTime("Published").ToString("dd")}/{Document.Destination.FileNameWithoutExtension}.html"
+# Posts are published at /yyyy/MM/dd/slug.html, taken from the Published date
+# in their front matter rather than the folder they sit in.
+#
+# The guard matters: this directory rule also catches the theme's post archive
+# page (posts/index.cshtml), which is not a post and has no Published date of
+# its own. Without the guard it inherits a default date, so the archive lands on
+# a date-derived URL that drifts -- moving the "Posts" nav target and deleting
+# the previous one on each deploy. Pin it to a stable path instead.
+DestinationPath: >
+  => Document.GetBool("IsPostArchive")
+     ? "posts/index.html"
+     : $"{Document.GetDateTime("Published").ToString("yyyy")}/{Document.GetDateTime("Published").ToString("MM")}/{Document.GetDateTime("Published").ToString("dd")}/{Document.Destination.FileNameWithoutExtension}.html"

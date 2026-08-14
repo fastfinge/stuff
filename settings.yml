@@ -10,4 +10,8 @@ MirrorResources: true
 OptimizeDataFileNames: true
 OptimizeContentFileNames: true
 LinkHideExtensions: false
+# The web server has no directory index and serves the site root for any path
+# that is not a file, so /posts and /tags silently rendered the home page.
+# Emit /posts/index.html instead of /posts.
+LinkHideIndexPages: false
 WebFingerAliasFromTemplate: "@fastfinge@fed.interfree.ca"

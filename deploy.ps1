@@ -25,6 +25,14 @@ param(
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
 
+# Build from scratch. Statiq leaves behind pages whose source file has since
+# been deleted, and rclone sync would then push those stale pages live. CI
+# never hits this because it builds from a fresh checkout; local builds do.
+if (Test-Path 'output') {
+    Write-Host '==> Clearing previous output' -ForegroundColor Cyan
+    Remove-Item -LiteralPath 'output' -Recurse -Force
+}
+
 Write-Host '==> Building site' -ForegroundColor Cyan
 dotnet run --configuration Release
 if ($LASTEXITCODE -ne 0) { throw "Build failed with exit code $LASTEXITCODE" }
