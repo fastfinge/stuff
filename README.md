@@ -78,6 +78,49 @@ Required repository secrets:
   Use a deploy-only key, not your personal one.
 - `SFTP_KNOWN_HOSTS` — the server's host key, from `ssh-keyscan interfree.ca`.
 
+## Announcing posts
+
+A post opts in by listing targets in its front matter:
+
+```
+Announce: fedi
+```
+
+or, once there is more than one:
+
+```
+Announce:
+- fedi
+- bluesky
+```
+
+Then:
+
+```
+./announce.ps1            # dry run: shows exactly what would be posted
+./announce.ps1 -Publish   # actually post
+```
+
+`announce.ps1` is dry run by default and never touches a file unless `-Publish`
+is passed. For each target it:
+
+- skips the post if the target's URL key is already present (`fedi` records
+  `Fedi:`), so re-running is safe
+- refuses to announce a URL that is not live yet, so the link in the post always
+  resolves — deploy first, then announce
+- writes the resulting URL back into the front matter immediately, and if that
+  write fails, prints the URL and stops rather than letting the next run post a
+  duplicate
+
+Set `FEDI_TOKEN` to an Iceshrimp access token with `write:statuses` scope.
+`FEDI_INSTANCE` overrides the default of `https://fed.interfree.ca`.
+
+Adding a network later means adding one entry to the `$Targets` table at the top
+of the script: its front matter key, its token variable, and how to post.
+
+The usual order for a new post is deploy, announce, deploy — the second deploy
+picks up the new `Fedi:` value and wires up the comment and reaction widgets.
+
 ## A note on where this lives
 
 Do not put a working copy inside iCloud Drive. iCloud evicts files to
