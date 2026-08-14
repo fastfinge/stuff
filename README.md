@@ -58,6 +58,20 @@ PowerShell.
 the links page stays fresh), and on manual dispatch. It builds, sanity-checks
 the output, then `rclone sync`s `output/` to the server over SFTP.
 
+### Deploying without GitHub
+
+`./deploy.ps1` does the same thing from this machine, using your own SSH
+credentials instead of the CI deploy key:
+
+```
+./deploy.ps1 -DryRun   # show what would change on the server
+./deploy.ps1           # build and deploy
+```
+
+Both paths apply the same guards: refuse to deploy if the build produced no
+`index.html` or fewer than 20 pages, pin the server's host key, and cap
+deletions at 50 files.
+
 Required repository secrets:
 
 - `SFTP_KEY` — private half of an SSH keypair authorised for `fastfinge@interfree.ca`.
