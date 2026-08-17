@@ -5,6 +5,7 @@ Tags:
 Announce: fedi
 Lead: All services on rblind.com and interfree.ca will be down for 6 hours on August 18th, 2026.
 
+Fedi: https://fed.interfree.ca/notes/aq0z5gdbt0f1vv35
 ---
 There is a scheduled maintenance window for [the data center](https://servarica.com) where all services on interfree.ca and rblind.com are hosted:
 

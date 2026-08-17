@@ -872,5 +872,33 @@
       "endpoint": null,
       "at": "2026-08-14T19:14:28.9660172Z"
     }
+  },
+  "https://stuff.interfree.ca/2026/07/14/package-hero.html": {
+    "https://www.kroegoor.com/en": {
+      "note": "no endpoint advertised",
+      "at": "2026-08-17T15:50:49.1898926Z",
+      "endpoint": null,
+      "status": 0
+    },
+    "https://apps.apple.com/us/app/package-hero/id6785399401": {
+      "note": "no endpoint advertised",
+      "at": "2026-08-17T15:50:49.1898926Z",
+      "endpoint": null,
+      "status": 0
+    }
+  },
+  "https://stuff.interfree.ca/2026/08/17/downtime.html": {
+    "https://servarica.com/": {
+      "note": "no endpoint advertised",
+      "at": "2026-08-17T15:50:49.1898926Z",
+      "endpoint": null,
+      "status": 0
+    },
+    "http://www.rblind.com/": {
+      "note": "HTTP 404",
+      "at": "2026-08-17T15:50:49.1898926Z",
+      "endpoint": null,
+      "status": 0
+    }
   }
 }
