@@ -308,6 +308,24 @@ Both paths apply the same guards: refuse to deploy if the build produced no
 `index.html` or fewer than 20 pages, pin the server's host key, and cap
 deletions at 50 files.
 
+`./deploy.ps1` is only the deploy, though. When CI is unavailable and a post
+needs to actually go out, `./publish.ps1` runs the whole sequence the workflow
+runs — deploy, announce, redeploy, send webmentions — in that order and for the
+reasons in "Announcing from CI":
+
+```
+./publish.ps1 -DryRun   # walk through all four steps, changing nothing
+./publish.ps1           # publish for real
+./publish.ps1 -Commit   # ...and commit the Fedi: keys and webmentions-sent.json
+```
+
+It skips announcing if `FEDI_TOKEN` is not set, and skips the second deploy if
+nothing was announced. What it will not do is push: steps 2 and 4 write state
+into the repo, and that state is the only record that an irreversible thing has
+happened, so an uncommitted `Fedi:` key means the next CI run announces the post
+a second time. The script ends by naming the files to commit; `-Commit` commits
+them for you, still without pushing.
+
 Required repository secrets:
 
 - `SFTP_KEY` — private half of an SSH keypair authorised for `fastfinge@interfree.ca`.

@@ -20,6 +20,8 @@ dotnet run -- preview           # build and serve at http://localhost:5080
 dotnet build                    # compile only; fast syntax check for C# shortcode work
 ./deploy.ps1 -DryRun            # show what a deploy would change on the server
 ./deploy.ps1                    # build and deploy from this machine
+./publish.ps1 -DryRun           # walk the whole publish sequence, changing nothing
+./publish.ps1                   # deploy, announce, redeploy, webmention -- what CI does
 ./announce.ps1                  # dry run: show what would be posted to the fediverse
 ./announce.ps1 -Publish         # actually post
 ./webmention.ps1                # dry run: show what webmentions would be sent
