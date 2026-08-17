@@ -364,7 +364,8 @@ of the script: its front matter key, its token variable, and how to post.
 The usual order for a new post is deploy, announce, deploy, `./webmention.ps1
 -Send`. The second deploy picks up the new `Fedi:` value and wires up the comment
 and reaction widgets; the webmentions go last because a receiver fetches the post
-to verify the link, so the post has to be live and final first.
+to verify the link, so the post has to be live and final first. CI runs that
+whole sequence itself, so this order only matters when deploying by hand.
 
 ### Announcing from CI
 
@@ -378,9 +379,12 @@ order and for those reasons:
 4. rebuild and redeploy, so the comment widgets and the `u-syndication` link
    appear on the pages that were just published without them
 5. ping the WebSub hub
+6. `./webmention.ps1 -Send`, then commit `webmentions-sent.json` back
 
-Steps 3 to 5 only run if something was actually announced, so the daily schedule
-run does nothing extra.
+Steps 3 and 4 only run if something was actually announced. Steps 5 and 6 run
+on every deploy, including the daily schedule run — both are no-ops when
+nothing has changed, and step 6 has to see links that appear in a post edit,
+not just in a new post.
 
 Required repository secret:
 
@@ -394,10 +398,21 @@ That matters: the URL is the only record that a post has already been announced,
 so losing it means the next run posts a duplicate. Recover the `Fedi:` lines from
 the log and commit them by hand.
 
-Sending webmentions is deliberately **not** in CI. It would need its own
-commit-back of `webmentions-sent.json`, and the first run would mention the whole
-back catalogue — that wants a human looking at the dry run. Run
-`./webmention.ps1 -Send` locally once CI has finished.
+Step 6 sends the webmentions, and it is last for the reason above: a receiver
+fetches the source URL to verify the link, so the post has to be live *and*
+final, rebuild included. It commits `webmentions-sent.json` back the same way
+step 3 commits the `Fedi:` values, and for the same kind of reason — that file
+is the only record of what has already been mentioned, so losing the push means
+the next run mentions those links again. The send itself is
+`continue-on-error`: the site is already live by then, and a receiver having a
+bad day is not a failed deploy.
+
+This was deliberately *not* in CI until the back catalogue had been mentioned
+once, because the first run mentions every outbound link in every post and that
+wants a human looking at the dry run first. `webmentions-sent.json` now covers
+the archive, so there is no unattended first run left to worry about. If you
+ever reset that file, run `./webmention.ps1` by hand and read the dry run before
+letting CI near it again.
 
 ## A note on where this lives
 

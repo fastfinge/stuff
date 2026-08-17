@@ -111,17 +111,21 @@ what the comment and reaction widgets and the `u-syndication` link read. `webmen
 comes last, because a receiver fetches the source URL to verify the link really exists. So
 the sequence for a new post is deploy, announce, deploy, `./webmention.ps1 -Send`.
 
-CI does the first three itself, in one job, in that order — deploy, announce, commit the
+CI does that whole sequence itself, in one job, in that order — deploy, announce, commit the
 `Fedi:` values back to `main` with `[skip ci]`, rebuild, redeploy. Do not reorder those
 steps to "save a build": announcing before the deploy posts a permanent, uneditable
 fediverse link to a URL that 404s, and skipping the rebuild leaves the just-published post
 without its comment widgets. The commit-back is gated on `git diff --name-only --
 input/posts`, so everything after it is skipped when nothing was announced. `webmention.ps1`
-is deliberately not in CI; see README.
+runs last, after the redeploy, and commits `webmentions-sent.json` back the same way — a
+receiver fetches the source URL to verify the link, so the post must be live and final
+before it runs.
 
 **`webmention.ps1` sends the whole back catalogue on its first real run.** It considers
 every outbound link in every post, minus what `webmentions-sent.json` records. That file is
-the only thing stopping a re-send, so it belongs in git. Always look at the dry run first.
+the only thing stopping a re-send, so it belongs in git — and now that CI runs the send
+unattended, an emptied or unpushed state file means CI re-mentions the archive. If you ever
+reset it, look at the dry run by hand before letting CI near it.
 
 **Syntax highlighting is client-side and fully self-hosted.** All 298 Prism 1.29.0 language
 grammars live in `input/js/vendor/prism-components/`, and `input/_layout.cshtml` points the

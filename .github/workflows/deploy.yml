@@ -170,6 +170,47 @@ jobs:
               --data-urlencode "hub.url=$topic" || echo "ping for $topic failed"
           done
 
+      # Last, and after every deploy above: a receiver fetches the source URL to
+      # check the link really is there, so the post has to be live and final --
+      # including the rebuild that adds the Fedi: syndication link. Reads
+      # output/, which is still the tree that was just synced.
+      #
+      # continue-on-error for the same reason as the hub ping: the site is
+      # already live, and an unreachable receiver has not broken this deploy.
+      - name: Send webmentions
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        shell: pwsh
+        run: ./webmention.ps1 -Send
+
+      # webmentions-sent.json is the only record of what has already been
+      # mentioned; without this commit-back every run would mention the same
+      # links again. always() so whatever the send did record still gets saved
+      # when the step above failed partway.
+      - name: Record the webmentions sent
+        if: always() && github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet -- webmentions-sent.json; then
+            echo "Nothing new was mentioned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- webmentions-sent.json
+          # [skip ci]: nothing downstream needs a rebuild, and without it this
+          # push would start a redundant run.
+          git commit -m 'Record webmentions sent [skip ci]'
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying"
+            sleep 5
+          done
+          echo "::error::Could not push webmentions-sent.json. Every link in the diff below will be mentioned a second time on the next run. Commit it by hand."
+          git log -1 -p -- webmentions-sent.json
+          exit 1
+
       - name: Remove deploy credentials
         if: always()
         run: rm -f /tmp/deploy_key /tmp/known_hosts
