@@ -1,0 +1,876 @@
+{
+  "https://stuff.interfree.ca/2025/05/03/innosearch.html": {
+    "https://www.innosearch.ai/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://fed.interfree.ca/notes/a626xga2bb2ee5re": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.freedomscientific.com/": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://forum.audiogames.net/": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/08/28/correct-years-with-nvda-and-espeak.html": {
+    "https://github.com/espeak-ng/espeak-ng": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.nvaccess.org/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/05/01/moving-to-statiq.html": {
+    "https://www.statiq.dev/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.micro.blog/": {
+      "status": 0,
+      "note": "HTTP 404",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/15/can-ai-help-me-read.html": {
+    "https://archive.org/details/sim_astounding-science-fiction_1955-03_55_1": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/05/08/jami.html": {
+    "https://jami.net/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/06/01/android56.html": {
+    "https://legere.io/reader": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://podcastaddict.com/": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.digipom.com/portfolio-items/easy-voice-recorder": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.macrodroid.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2026/05/24/the-agent-solution.html": {
+    "https://github.com/nousresearch/hermes-agent": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/donovan-yohan/hermes-plugin-remote-hosts": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/fastfinge/hermes-kagi-plugin": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/SigmaNight/basiliskLLM": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/nanogpt-community/NanoProxy": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/rewasa/hermes-code-intel-plugin": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.nanogpt.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://apps.apple.com/us/app/perspective-intelligence/id6448894750": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/stephenschoettler/hermes-lcm": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/ogallotti/rtk-hermes": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/06/22/flight-simulation.html": {
+    "https://www.talkingflightmonitor.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/16/review-the-beeginning-a-dungeoncore.html": {
+    "https://micro.blog/books/G49350504": {
+      "status": 202,
+      "note": null,
+      "endpoint": "https://micro.blog/webmention",
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://soundofsavy.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://openlibrary.org/works/OL42459359W": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/13/review-the-deco-be-from.html": {
+    "https://ca.store.ui.com/ca/en/products/udm-pro": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.applevis.com/apps/ios/utilities/tp-link-deco": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://help.fing.com/hc/en-us/articles/4418409261458-Fingbox-Set-up-and-features": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.tp-link.com/ca/home-networking/deco/deco-be95": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://amplifi.com/alien": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/12/22/confered-gods.html": {
+    "https://testflight.apple.com/join/9h9SusEf": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/05/27/android-23.html": {
+    "https://accessibleandroid.com/jieshuo-screen-reader": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.nvaccess.org/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://play.google.com/store/apps/details?id=com.prudence.reader&hl=en_US": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/19/theyre-not-joking-long-lines.html": {
+    "https://www.cbc.ca/news/canada/long-lines-advance-voting-1.7514157": {
+      "status": 0,
+      "note": "The request was canceled due to the configured HttpClient.Timeout of 30 seconds elapsing.",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/30/call-of-fate-a-tour.html": {
+    "https://www.appshubforvisuallyimpaired.com/call-of-fate": {
+      "status": 0,
+      "note": "The SSL connection could not be established, see inner exception.",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/05/22/android0.html": {
+    "https://arctouch.com/state-of-mobile-app-accessibility": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.unihertz.com/products/jelly-max": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/14/the-three-ai-tools-in.html": {
+    "https://www.lesswrong.com/w/rokos-basilisk": {
+      "status": 0,
+      "note": "HTTP 429",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.guideinteraction.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.openrouter.ai/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.seeingai.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://typeahead.ai/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.bemyeyes.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.nvaccess.org/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.kagi.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/SigmaNight/basiliskLLM?tab=readme-ov-file": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.innosearch.ai/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://glidance.io/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/10/my-accessible-selfhosting-tech-stack.html": {
+    "https://ergo.chat/about": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://cosmos-cloud.io/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/girlbossceo/conduwuit": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://ircv3.net/software/servers": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://readeck.org/en": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://greasyfork.org/en/scripts/503246-sillytavern-screenreader-accessibility-fixes": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/eikek/sharry": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/ipfs/kubo": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/bluesky-social/pds": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://servarica.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://join-lemmy.org/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/laurent22/joplin/blob/dev/packages/server/README.md": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://iceshrimp.dev/iceshrimp/iceshrimp.net": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.rblind.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://rclone.org/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/SillyTavern/SillyTavern": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/Lynx-Shortener/Lynx": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://easydns.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/tayarndt/open-webui": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://miniflux.app/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/jmdaweb/NVDARemoteServer": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/24/review-the-new-dawn-by.html": {
+    "https://soundofsavy.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://openlibrary.org/works/OL42557111W": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/05/11/textadventure.html": {
+    "https://ifdb.org/viewgame?id=imopnqh4llwkvfne": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.youtube.com/watch?v=W3id8E34cRQ": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/09/open-protocols-and-apis-the.html": {
+    "https://news.individual.net/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://en.wikipedia.org/wiki/Microsoft_Comic_Chat": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://dustycloud.org/blog/how-decentralized-is-bluesky": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.freedomscientific.com/products/software/jaws": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/MCV-Software/TWBlue": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/fastfinge/adispeak": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://tweesecake.app/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.freelists.org/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.chrishofstader.com/chicken-nugget-accessible-twitter-client-released": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://randylaptop.com/software/jawter-2/all/1": {
+      "status": 0,
+      "note": "No connection could be made because the target machine actively refused it. (randylaptop.com:443)",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://web.archive.org/web/20071017114006/http://icq.com/ircqnet/help/index.html": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.nathantech.net/products/software/lunareddit.php": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://gist.github.com/hunterbridges/ab095066d40f2e1a243e": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://guidebeta.slack.com/account/gateways": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://apps.apple.com/us/app/dystopia-for-reddit/id1430599061": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://redditforblind.org/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://groups.io/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.mirc.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://qwitter-client.net/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2026/01/05/ai-tts-for-screenreaders.html": {
+    "https://github.com/fastfinge/eloquence_64": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/espeak-ng/espeak-ng": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/fastfinge/kittentts-nvda": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://blastbay.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://github.com/fastfinge/supertonic-nvda": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2026/02/06/openclaw.html": {
+    "https://openclaw.ai/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/05/02/sleep-solutions.html": {
+    "https://en.wikipedia.org/wiki/Melatonin": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://en.wikipedia.org/wiki/Dimenhydrinate": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4689974": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/NoodleIncident": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5741691": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://amidaudio.com/about": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://apolloneuro.com/en-ca": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://my.clevelandclinic.org/health/drugs/20871-zolpidem-tablets": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://en.wikipedia.org/wiki/Diphenhydramine": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/05/07/accessible-cordcutting.html": {
+    "https://getchannels.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://shop.silicondust.com/shop/product/hdfx-4k": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.netflix.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.disneyplus.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://tv.apple.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.channelmaster.com/en-ca/products/extremetenna-80-outdoor-tv-antenna-cm-4228hd": {
+      "status": 0,
+      "note": "HTTP 404",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/12/16/origins-of-accessibility.html": {
+    "https://www.chiark.greenend.org.uk/~peterb/hawking/history.html": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://makeitfable.com/article/accessibility-is-the-origin-of-human-centered-design/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://medium.com/aira-io/world-renowned-inventor-ray-kurzweil-named-to-aira-scientific-advisory-board-65607f9c849b": {
+      "status": 0,
+      "note": "HTTP 403",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.afb.org/blindness-and-low-vision/using-technology/interviews-technology-pioneers/ray-kurzweil": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.afb.org/aw/5/5/14692": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.makeitfable.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/05/28/android4.html": {
+    "https://github.com/jepockn/ruthless-pixel-launcher": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://fireborn.mataroa.blog/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://play.google.com/store/apps/details?id=com.teslacoilsw.launcher&hl=en_US": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://lawnchair.app/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.accessibleandroid.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/11/ai-and-the-sound-of.html": {
+    "https://www.elevenlabs.io/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://www.youtube.com/watch?v=V6J7bx8Z9aA": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://deafculturecentre.ca/donate": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/04/08/some-solutions-to-my-problems.html": {
+    "https://chromewebstore.google.com/detail/bookmark-importexport/gdhpeilfkeeajillmcncaelnppiakjhn": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  },
+  "https://stuff.interfree.ca/2025/12/19/magical-artist.html": {
+    "https://www.audiblegame.com/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://mwgame.net/": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://ddt.one/en/games/dreamland": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    },
+    "https://apps.apple.com/app/magical-artist/id6749520010": {
+      "status": 0,
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "at": "2026-08-14T19:14:28.9660172Z"
+    }
+  }
+}

@@ -66,6 +66,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
+# Set-Location does not move the .NET process working directory, so a relative
+# path passed to [System.IO.File] would resolve against wherever the shell was
+# started. Keep the two in step.
+[Environment]::CurrentDirectory = $PSScriptRoot
 
 $UserAgent = 'stuff.interfree.ca webmention sender (+https://stuff.interfree.ca/)'
 
@@ -73,7 +77,7 @@ $UserAgent = 'stuff.interfree.ca webmention sender (+https://stuff.interfree.ca/
 # Same two lines announce.ps1 reads, for the same reason: the URL a post is
 # published at is a fact about settings.yml, not something to hardcode twice.
 
-$settings = [System.IO.File]::ReadAllText("D:\src\stuff\settings.yml")
+$settings = [System.IO.File]::ReadAllText((Join-Path $PSScriptRoot 'settings.yml'))
 $host_ = if ($settings -match '(?m)^Host:\s*(.+)$') { $Matches[1].Trim() } else { throw 'No Host in settings.yml' }
 $scheme = if ($settings -match '(?m)^LinksUseHttps:\s*true') { 'https' } else { 'http' }
 $siteRoot = "${scheme}://${host_}"

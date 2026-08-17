@@ -44,6 +44,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
+# Set-Location does not move the .NET process working directory, so a relative
+# path passed to [System.IO.File] would resolve against wherever the shell was
+# started. Keep the two in step.
+[Environment]::CurrentDirectory = $PSScriptRoot
 
 # --- Targets -------------------------------------------------------------
 # To add a network later, add an entry here and implement its Post block.
@@ -147,7 +151,7 @@ function Add-FrontMatterKey {
 
 # --- Site config ---------------------------------------------------------
 
-$settings = [System.IO.File]::ReadAllText('settings.yml')
+$settings = [System.IO.File]::ReadAllText((Join-Path $PSScriptRoot 'settings.yml'))
 $host_ = if ($settings -match '(?m)^Host:\s*(.+)$') { $Matches[1].Trim() } else { throw 'No Host in settings.yml' }
 $scheme = if ($settings -match '(?m)^LinksUseHttps:\s*true') { 'https' } else { 'http' }
 
