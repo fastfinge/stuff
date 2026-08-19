@@ -900,5 +900,13 @@
       "endpoint": null,
       "status": 0
     }
+  },
+  "https://stuff.interfree.ca/2026/08/19/accessible-oh-my-posh.html": {
+    "https://ohmyposh.dev/": {
+      "status": 0,
+      "endpoint": null,
+      "at": "2026-08-19T14:18:10.9317723Z",
+      "note": "no endpoint advertised"
+    }
   }
 }
