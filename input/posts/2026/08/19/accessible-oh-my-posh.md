@@ -4,6 +4,7 @@ Lead: Oh My Posh is a set of configurations and themes for powershell, that allo
 Tags:
 - articles
 Announce: fedi
+Fedi: https://fed.interfree.ca/notes/aq3qpoq1maephhwk
 ---
 Microsoft's Powershell has been my favourite shell for several years now. Not only is it an extremely powerful shell on Windows, it also runs perfectly well on mac and Linux; it tends to be the first thing I set up when configuring a new server, in fact. It's deeply configurable, integrates well with DotNet assemblies, and is well documented and logical. If you haven't explored powershell yourself yet, you absolutely should.
 
