@@ -3,6 +3,7 @@ Published: 2026-08-23
 Lead: I've been running fediverse as the commenting system on this blog for a while now. Here's how it's been going. #20260822_BlogCommentsViaHashtags 
 Announce: fedi
 InReplyTo: https://karl-voit.at/2026/08/22/Blog-Comments-via-Hashtags/
+Fedi: https://fed.interfree.ca/notes/aq9fd4eqpg432nqp
 ---
 I was inspired to write this by a number of recent articles around the blogosphere (is that still a word people use?) on using the fediverse (or atproto) as a way to get comments on a static blog.  As someone who gets a lot of fediverse interaction, and has been doing this for a bit, the experience has been mixed. 
 
