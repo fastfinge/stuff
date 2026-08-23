@@ -908,5 +908,19 @@
       "at": "2026-08-19T14:18:10.9317723Z",
       "note": "no endpoint advertised"
     }
+  },
+  "https://stuff.interfree.ca/2026/08/23/fediverse-comments.html": {
+    "https://www.tags.pub/": {
+      "note": "The request was canceled due to the configured HttpClient.Timeout of 30 seconds elapsing.",
+      "endpoint": null,
+      "status": 0,
+      "at": "2026-08-23T13:47:00.1173722Z"
+    },
+    "https://karl-voit.at/2026/08/22/Blog-Comments-via-Hashtags/": {
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "status": 0,
+      "at": "2026-08-23T13:47:00.1173722Z"
+    }
   }
 }
