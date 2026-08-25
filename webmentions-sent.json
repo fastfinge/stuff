@@ -922,5 +922,73 @@
       "status": 0,
       "at": "2026-08-23T13:47:00.1173722Z"
     }
+  },
+  "https://stuff.interfree.ca/2026/08/25/ai-roleplay.html": {
+    "https://www.lettuceai.app/": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    },
+    "https://apps.apple.com/us/app/tavo-ai-roleplay-frontend/id6744438897": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    },
+    "https://www.theguardian.com/tv-and-radio/2025/jul/12/i-felt-pure-unconditional-love-the-people-who-marry-their-ai-chatbots": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    },
+    "https://www.theguardian.com/technology/2026/may/05/richard-dawkins-ai-consciousness-anthropic-claude-openai-chatgpt": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    },
+    "https://greasyfork.org/en/scripts/503246-sillytavern-screenreader-accessibility-fixes": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    },
+    "https://www.youtube.com/watch?v=x4mnkE8_5SE": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    },
+    "https://github.com/SillyTavern/SillyTavern": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    },
+    "https://www.cbc.ca/radio/asithappens/as-it-happens-thursday-edition-1.5772498/magicians-do-not-lie-about-the-universe-says-performer-penn-jillette-of-the-amazing-randi-1.5772898": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "The request was canceled due to the configured HttpClient.Timeout of 30 seconds elapsing."
+    },
+    "https://futurism.com/openai-investor-chatgpt-mental-health%5D": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "HTTP 404"
+    },
+    "https://github.com/Pasta-Devs/Marinara-Engine": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    },
+    "https://www.cbc.ca/news/canada/ai-psychosis-canada-1.7631925": {
+      "at": "2026-08-25T16:28:24.3399353Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "The request was canceled due to the configured HttpClient.Timeout of 30 seconds elapsing."
+    }
   }
 }
