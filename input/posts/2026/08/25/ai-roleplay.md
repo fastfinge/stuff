@@ -4,6 +4,7 @@ Lead: While AI roleplay has gotten a bad rap recently, as all things gaming rela
 Tags:
 - articles
 Announce: fedi
+Fedi: https://fed.interfree.ca/notes/aqcg0chhayjwr24j
 ---
 Not a week goes by without some publication releasing a new article, video, or paper on the completely real and valid harms AI is doing to the mental health of a large segment of society. Sometimes it's a weird news or human interest fluff peace on [someone getting married](https://www.theguardian.com/tv-and-radio/2025/jul/12/i-felt-pure-unconditional-love-the-people-who-marry-their-ai-chatbots) to Chat GPT. Sometimes it's a deep, hard-hitting look at [AI psychosis](https://www.cbc.ca/news/canada/ai-psychosis-canada-1.7631925). Sometimes it's just encouraging everyone to [point and laugh](https://www.youtube.com/watch?v=x4mnkE8_5SE) at lonely people with mental struggles who have AI girlfriends, so the news publication can make money hand over fist from the clickbait while victimizing the people struggling.
 
