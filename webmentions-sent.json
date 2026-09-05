@@ -996,5 +996,61 @@
       "note": "no endpoint advertised",
       "at": "2026-08-25T16:41:42.0596376Z"
     }
+  },
+  "https://stuff.interfree.ca/2026/09/05/ai-prompting-from-a-blindness-perspective.html": {
+    "https://github.com/TimmyOVO/deepseek-ocr.rs": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "no endpoint advertised"
+    },
+    "https://famichiki.jp/@RachelThornSub/115612889599922384": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "no endpoint advertised"
+    },
+    "https://x.ai/news/grok-4": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "no endpoint advertised"
+    },
+    "https://blog.google/products/gemini/gemini-3/": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "no endpoint advertised"
+    },
+    "https://github.com/GoogleChromeLabs/web-ai-demos/tree/main/image-alt-text-playground": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "no endpoint advertised"
+    },
+    "https://chrome.dev/web-ai-demos/image-alt-text-playground/": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "no endpoint advertised"
+    },
+    "https://openai.com/gpt-5/": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "HTTP 403"
+    },
+    "https://github.com/SigmaNight/basiliskLLM": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "no endpoint advertised"
+    },
+    "https://huggingface.co/meta-llama/Llama-3.2-90B-Vision": {
+      "status": 0,
+      "at": "2026-09-05T20:26:12.5674209Z",
+      "endpoint": null,
+      "note": "no endpoint advertised"
+    }
   }
 }
