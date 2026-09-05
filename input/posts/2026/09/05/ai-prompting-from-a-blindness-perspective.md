@@ -4,6 +4,7 @@ Tags:
 - articles
 Lead: This article was originally written for the Google Developer blog. However, it's been a number of months since I've heard from them, so I'm publishing it here.
 Announce: fedi
+Fedi: https://fed.interfree.ca/notes/aqseckazs7x9y9pk
 ---
 
 ### Introduction
