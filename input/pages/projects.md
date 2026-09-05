@@ -8,3 +8,5 @@ Sometimes, I do things! Shocking,, I know.  But here's a list of some of those t
 * [OurBlind](https://www.ourblind.com): Links to the /r/blind subreddit and discord that I moderate.
 * [Fed.interfree.ca](https://fed.interfree.ca): An IceShrimp instance I run, accounts can be provided on request.
 * [SillyTavern Access Fixes](https://greasyfork.org/en/scripts/503246-sillytavern-screenreader-accessibility-fixes): a userscript for making Access fixes for the SillyTavern LLM frontend
+
+As well, this website, and all of the tools that build and deploy it, are [open source](https://github.com/fastfinge/stuff). Feel free to remix and reuse it to your hearts content!
