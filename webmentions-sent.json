@@ -989,6 +989,12 @@
       "endpoint": null,
       "status": 0,
       "note": "The request was canceled due to the configured HttpClient.Timeout of 30 seconds elapsing."
+    },
+    "https://futurism.com/openai-investor-chatgpt-mental-health": {
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised",
+      "at": "2026-08-25T16:41:42.0596376Z"
     }
   }
 }
