@@ -4,6 +4,7 @@ tags:
 - articles
 announce: fedi
 Lead: Updating Hermes agent on an automatic schedule is much, much harder than it should be.
+Fedi: https://fed.interfree.ca/notes/arnpa4wqdywr3196
 ---
 As someone who has used Hermes Agent for several months now, one of the biggest struggles is just keeping it updated, keeping it working through updates, and adapting the plugins I maintain to the frequent codebase changes.
 
