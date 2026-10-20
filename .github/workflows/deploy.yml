@@ -211,6 +211,27 @@ jobs:
           git log -1 -p -- webmentions-sent.json
           exit 1
 
+      # standard.site: make the records on the PDS match this build. After the
+      # deploys for the same reason as webmentions -- a reader of a new record
+      # fetches its page to check the link back -- and standardsite.ps1 skips a
+      # new post whose page is not live yet anyway. Reads obj/standard-site.json,
+      # which every build above has written. Nothing to commit: the PDS is the
+      # state, so a lost run is simply caught up by the next one, including the
+      # daily one. continue-on-error because the site itself is already live.
+      - name: Sync standard.site records
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        shell: pwsh
+        env:
+          ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
+        run: |
+          if (-not $env:ATPROTO_APP_PASSWORD) {
+            Write-Host 'No ATPROTO_APP_PASSWORD secret set; showing what would change.'
+            ./standardsite.ps1
+            exit 0
+          }
+          ./standardsite.ps1 -Publish
+
       - name: Remove deploy credentials
         if: always()
         run: rm -f /tmp/deploy_key /tmp/known_hosts

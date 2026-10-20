@@ -4,7 +4,8 @@
 
 .DESCRIPTION
     The same job .github/workflows/deploy.yml does, in the same order and for
-    the same reasons: deploy, announce, deploy again, send webmentions.
+    the same reasons: deploy, announce, deploy again, send webmentions, sync
+    standard.site.
 
         1. ./deploy.ps1            build, sanity check, sync, ping the hub
         2. ./announce.ps1 -Publish only after the deploy, because announce.ps1
@@ -14,8 +15,12 @@
                                    the pages built in step 1 had no Fedi: value,
                                    so they went out without their comment
                                    widgets and u-syndication link
-        4. ./webmention.ps1 -Send  last, because a receiver fetches the source
-                                   URL to check the link is really there
+        4. ./webmention.ps1 -Send  after the deploys, because a receiver
+                                   fetches the source URL to check the link is
+                                   really there
+        5. ./standardsite.ps1      likewise after the deploys: a reader of a
+             -Publish              new record fetches its page to check the
+                                   link back. Writes nothing to the repo.
 
     Use this when GitHub Actions is unavailable. Steps 2 and 4 both write state
     into the repo -- the Fedi: keys and webmentions-sent.json -- and that state
@@ -25,7 +30,7 @@
 
 .PARAMETER DryRun
     Show what every step would do and change nothing: no files on the server, no
-    fediverse post, no webmentions, no commit.
+    fediverse post, no webmentions, no standard.site records, no commit.
 
 .PARAMETER Commit
     Commit the Fedi: keys and webmentions-sent.json when finished. Commits
@@ -52,6 +57,7 @@ Set-Location -LiteralPath $PSScriptRoot
 $deploy     = Join-Path $PSScriptRoot 'deploy.ps1'
 $announce   = Join-Path $PSScriptRoot 'announce.ps1'
 $webmention = Join-Path $PSScriptRoot 'webmention.ps1'
+$standardSite = Join-Path $PSScriptRoot 'standardsite.ps1'
 
 function Write-Step {
     param([string]$Message)
@@ -89,14 +95,21 @@ if (-not $canAnnounce) {
     Write-Warning 'FEDI_TOKEN is not set; the announce step will be skipped.'
 }
 
+# Same again for standard.site: without the app password, step 5 only shows
+# what it would change.
+$canSyncStandardSite = [bool]$env:ATPROTO_APP_PASSWORD
+if (-not $canSyncStandardSite) {
+    Write-Warning 'ATPROTO_APP_PASSWORD is not set; the standard.site step will only be a dry run.'
+}
+
 # --- 1. Deploy -----------------------------------------------------------
 
-Write-Step 'Step 1/4: deploy'
+Write-Step 'Step 1/5: deploy'
 if ($DryRun) { & $deploy -DryRun } else { & $deploy }
 
 # --- 2. Announce ---------------------------------------------------------
 
-Write-Step 'Step 2/4: announce'
+Write-Step 'Step 2/5: announce'
 $announced = $false
 
 if (-not $canAnnounce -and -not $DryRun) {
@@ -113,7 +126,7 @@ else {
 
 # --- 3. Redeploy ---------------------------------------------------------
 
-Write-Step 'Step 3/4: redeploy'
+Write-Step 'Step 3/5: redeploy'
 if ($announced) {
     # The just-published pages went out without their comment widgets and
     # u-syndication link, because the Fedi: value did not exist when they were
@@ -126,10 +139,17 @@ else {
 
 # --- 4. Webmentions ------------------------------------------------------
 
-Write-Step 'Step 4/4: webmentions'
+Write-Step 'Step 4/5: webmentions'
 # Reads output/, which the deploy above has just rebuilt, and needs the post to
 # be live: a receiver fetches the source URL to verify the link exists.
 if ($DryRun) { & $webmention } else { & $webmention -Send }
+
+# --- 5. standard.site ----------------------------------------------------
+
+Write-Step 'Step 5/5: standard.site'
+# Reads obj/standard-site.json from the last build above. The PDS is its only
+# state, so there is nothing to commit afterwards.
+if ($DryRun -or -not $canSyncStandardSite) { & $standardSite } else { & $standardSite -Publish }
 
 # --- What was written back -----------------------------------------------
 

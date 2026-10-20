@@ -51,3 +51,13 @@ TokenEndpoint: https://tokens.indieauth.com/token
 # WebSub. Advertised in the page head and injected into the feeds by
 # WebSubLinks.cs; deploy.ps1 pings it once the new feed is live.
 WebSubHub: https://pubsubhubbub.superfeedr.com/
+
+# --- standard.site -------------------------------------------------------
+# This site as a standard.site publication on AT Protocol. The record lives in
+# the repo of the DID named here, on that DID's own PDS; standardsite.ps1 looks
+# the PDS up from the DID, signs in as AtprotoHandle with ATPROTO_APP_PASSWORD,
+# and creates the record if it is not there yet. The record key was generated
+# once and is fixed: changing it would orphan the publication and every
+# document that points at it. Delete this line to switch standard.site off.
+StandardSitePublication: at://did:plc:xneb2nsxiempeagqnpiqgnxj/site.standard.publication/3myda2bhyksiy
+AtprotoHandle: fastfinge.interfree.ca

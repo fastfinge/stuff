@@ -26,6 +26,8 @@ dotnet build                    # compile only; fast syntax check for C# shortco
 ./announce.ps1 -Publish         # actually post
 ./webmention.ps1                # dry run: show what webmentions would be sent
 ./webmention.ps1 -Send          # actually send them
+./standardsite.ps1              # dry run: show what standard.site records would change
+./standardsite.ps1 -Publish     # actually write them to the PDS
 ```
 
 There is no test suite and no linter. Verification is: build, then inspect the generated
@@ -89,9 +91,18 @@ the full picture; the parts that constrain edits:
   README.md has the one-liner.
 
 **Anything that must happen at publish time is a script, not a build step.** `announce.ps1`
-posts to the fediverse, `webmention.ps1` sends webmentions for outbound links, and
-`deploy.ps1` pings the WebSub hub after the sync. Ordering is a correctness constraint for
-all three — see the Gotchas below.
+posts to the fediverse, `webmention.ps1` sends webmentions for outbound links,
+`standardsite.ps1` syncs standard.site records to the PDS, and `deploy.ps1` pings the WebSub
+hub after the sync. Ordering is a correctness constraint for all of them — see the Gotchas
+below.
+
+**standard.site record keys are derived, not stored.** `StandardSite.cs` computes each post's
+record key from its `Published` date and URL path, so the `rel="site.standard.document"`
+link in `_head.cshtml` and the record `standardsite.ps1` writes always agree without any
+front-matter write-back. Changing that derivation re-keys every post: the next sync would
+create 40-odd new records and try to delete the old ones (stopped by `-MaxDelete`). Don't.
+The build writes the wanted records to `obj/standard-site.json`; the script diffs that
+against the PDS, which is the only state.
 
 ## Gotchas
 
@@ -99,6 +110,8 @@ all three — see the Gotchas below.
 previously broke on `@media` in generated CSS. Site-specific CSS lives in the inline
 `<style>` block in `input/_head.cshtml`; write it without `@`-rules where possible (e.g.
 `flex-wrap` instead of a breakpoint) rather than relying on remembering to escape.
+Razor views also compile as C# 8, not the project's language version: `is not null`
+and other C# 9+ syntax builds with `dotnet build` and then fails every page at `dotnet run`.
 
 **`deploy.ps1` and `.github/workflows/deploy.yml` do the same job and must not drift.** Both
 refuse to deploy unless `output/index.html` exists and there are ≥20 HTML pages, both pin the

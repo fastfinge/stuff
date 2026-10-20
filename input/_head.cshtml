@@ -50,6 +50,18 @@
 @* WebSub again: the topic URL a subscriber would hand to the hub for this page. *@
 <link rel="self" href="@Document.GetLink(true)">
 
+@* standard.site: on a post, the AT-URI of its document record, which is how a
+   reader of that record confirms this page is the one it describes. The key is
+   computed, not looked up, so this is right before the record exists; see
+   StandardSite.cs. Nothing on any other page, nor when it is switched off. *@
+@{
+  string standardSiteDocument = StandardSite.DocumentUri(Document, Context);
+}
+@if (standardSiteDocument != null)
+{
+  <link rel="site.standard.document" href="@standardSiteDocument">
+}
+
 <meta name="generator" content="Statiq">
 
 <script src="/js/webmention.min.js" async></script>
