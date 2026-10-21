@@ -1052,5 +1052,13 @@
       "endpoint": null,
       "note": "no endpoint advertised"
     }
+  },
+  "https://stuff.interfree.ca/2026/10/21/mcp-accessibility.html": {
+    "https://github.com/fastfinge/humcp": {
+      "note": "no endpoint advertised",
+      "endpoint": null,
+      "status": 0,
+      "at": "2026-10-21T15:44:40.3575412Z"
+    }
   }
 }
