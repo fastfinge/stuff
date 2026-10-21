@@ -1,3 +1,6 @@
+Title: My CV
+---
+
 # Samuel Proulx's CV
 
 - Email: [samuel@interfree.ca](mailto:samuel@interfree.ca)
