@@ -5,6 +5,7 @@ Tags:
 Lead: Can Model Context Protocol (MCP) have accessibility benefits for humans with disabilities, beyond just enabling AI? I built a tool we can use to find out!
 Announce: fedi
 
+Fedi: https://fed.interfree.ca/notes/aslujxe5222qmw2w
 ---
 
 A good deal of digital ink has been spilled on the benefits (or lack thereof) that AI may bring to the field of accessibility.  Thus far, most of this discussion has been focused in two areas. First, will the need to make websites accessible to AI agents cause an uptick in semantic and well-structured HTML that is easier for AI to process? Second, will AI generated code be more or less accessible for users with disabilities?  However, nobody has yet investigated if the tools currently being created specifically for AI may be reused by screen readers and other non-LLM assistive technology.  As more and more websites intended for humans begin blocking agentic traffic, this problem becomes ever more pressing, and the idea of allowing assistive technology to use the same gateways provided for AI becomes ever more timely.
