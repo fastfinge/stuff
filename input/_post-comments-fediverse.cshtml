@@ -2,7 +2,8 @@
   One section per network the post was announced on, then webmentions.
 
   Each network's half only works once the post has been announced there:
-  announce.ps1 posts it and writes the post's URL back as Fedi: or Bluesky:.
+  announce.ps1 posts it and writes the post's URL back as Fedi: or Bluesky:
+  (LinkedIn: is pasted in by hand).
   Until then the key is empty, which used to render href="" -- a link that looks
   like a link, is announced as a link, and silently reloads the page -- plus
   three widgets pointed at nothing. So a section renders only when its key is set.
@@ -16,6 +17,7 @@
 @{
   string fedi = Document.GetString("Fedi");
   string bluesky = Document.GetString("Bluesky");
+  string linkedIn = Document.GetString("LinkedIn");
 }
 @if (!string.IsNullOrWhiteSpace(fedi))
 {
@@ -49,6 +51,14 @@
   <h3>Reposts</h3>
   <div class="bsky-reposts" data-bsky-reposts="@bluesky"></div>
   <script src="/js/bsky-comments.js" data-appview="@Context.GetString("BlueskyAppView")"></script>
+}
+@if (!string.IsNullOrWhiteSpace(linkedIn))
+{
+  @* A link and nothing else: LinkedIn offers no way to read the comments on a
+     member's own posts, with or without signing in, so they cannot be shown
+     here. Say so, rather than leave a reader looking for them. *@
+  <h2>On LinkedIn</h2>
+  <p>Comments made on LinkedIn stay there: read or reply to <a href="@linkedIn">this post on LinkedIn.</a></p>
 }
 <h2>Webmentions</h2>
 <div id="webmentions"></div>

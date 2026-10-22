@@ -5,6 +5,7 @@ Tags:
 - articles
 Announce: fedi
 Fedi: https://fed.interfree.ca/notes/aq3qpoq1maephhwk
+linkedin: https://www.linkedin.com/feed/update/urn:li:activity:7495851654861176832/
 ---
 Microsoft's Powershell has been my favourite shell for several years now. Not only is it an extremely powerful shell on Windows, it also runs perfectly well on mac and Linux; it tends to be the first thing I set up when configuring a new server, in fact. It's deeply configurable, integrates well with DotNet assemblies, and is well documented and logical. If you haven't explored powershell yourself yet, you absolutely should.
 

@@ -415,6 +415,24 @@ and reaction widgets; the webmentions go last because a receiver fetches the pos
 to verify the link, so the post has to be live and final first. CI runs that
 whole sequence itself, so this order only matters when deploying by hand.
 
+### LinkedIn
+
+LinkedIn is not an announce target, on purpose. Its posts are written by hand
+(they want their own hashtags and tone anyway), and the URL of the LinkedIn post
+goes into the front matter:
+
+```
+LinkedIn: https://www.linkedin.com/feed/update/urn:li:share:xxxxxxxx/
+```
+
+That gives the page an "Also posted on LinkedIn" `u-syndication` link and an "On
+LinkedIn" section linking to the post. Only a link: LinkedIn has no API for
+reading the comments on a member's own posts (as of October 2026 nothing in its
+permission tables covers it, and every call needs a signed-in token), Bridgy
+does not support it, and scraping breaks its terms. Automating the posting
+itself would be possible through the self-serve Share on LinkedIn product, but
+its tokens expire every 60 days with no refresh, so it was not worth it.
+
 ### Announcing from CI
 
 `.github/workflows/deploy.yml` runs that sequence itself, in one job, in that
