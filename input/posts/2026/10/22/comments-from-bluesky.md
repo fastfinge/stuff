@@ -5,6 +5,8 @@ Tags:
 Lead: This blog can now pull in comments from bluesky, as well as the fediverse.
 Announce: [bluesky, fedi]
 
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3myhzcxznfk26
+Fedi: https://fed.interfree.ca/notes/asna7jf306rs9bd0
 ---
 In the modern world, blog comments are hard. If you run your own comment system, you get to deal with spammers, AI bots, and worse. You also have to deal with exploits on whatever comment system you use or any of the technology it depends on. That was the reason I built this blog as entirely static: once it's built, all the webserver does is serves HTML, JavaScript, and other files to your browser. No code at all is executed server-side.
 
