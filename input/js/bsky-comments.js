@@ -10,9 +10,13 @@
 //   <div data-bsky-replies="https://bsky.app/profile/HANDLE/post/RKEY"></div>
 //   <div data-bsky-likes="..."></div>
 //   <div data-bsky-reposts="..."></div>
+//
+// The AppView to read from is BlueskyAppView in settings.yml, handed over as the
+// script tag's data-appview, so moving off Bluesky's own is a settings change.
 "use strict";
 (() => {
-  const api = "https://public.api.bsky.app/xrpc";
+  const appView = (document.currentScript && document.currentScript.dataset.appview) || "https://public.api.bsky.app";
+  const api = `${appView.replace(/\/+$/, "")}/xrpc`;
 
   const getJson = async (method, params) => {
     const response = await fetch(`${api}/${method}?${new URLSearchParams(params)}`);

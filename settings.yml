@@ -61,3 +61,13 @@ WebSubHub: https://pubsubhubbub.superfeedr.com/
 # document that points at it. Delete this line to switch standard.site off.
 StandardSitePublication: at://did:plc:xneb2nsxiempeagqnpiqgnxj/site.standard.publication/3myda2bhyksiy
 AtprotoHandle: fastfinge.interfree.ca
+
+# --- Bluesky -------------------------------------------------------------
+# The AppView the comment section on each post reads Bluesky replies, likes and
+# reposts from, in the reader's browser. Any AppView that serves the app.bsky.*
+# read API without signing in, and allows cross-origin requests, will do; it
+# also needs to have indexed the threads, which a young one may not have.
+# Checked on 2026-10-22: api.blacksky.community serves likes but not this
+# site's older threads, and api.eurosky.social requires authentication. Posting
+# never touches an AppView -- announce.ps1 writes to the PDS directly.
+BlueskyAppView: https://public.api.bsky.app

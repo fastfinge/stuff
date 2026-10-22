@@ -385,7 +385,10 @@ Set `FEDI_TOKEN` to an Iceshrimp access token with `write:statuses` scope.
 `FEDI_INSTANCE` overrides the default of `https://fed.interfree.ca`.
 
 `bluesky` posts as `AtprotoHandle` straight to its own PDS, signing in with
-`ATPROTO_APP_PASSWORD` — the same app password `standardsite.ps1` uses. The URL
+`ATPROTO_APP_PASSWORD` — the same app password `standardsite.ps1` uses. It finds
+the PDS without asking Bluesky: the handle's `/.well-known/atproto-did` (or its
+`_atproto` DNS record, on Windows) gives the DID, and the DID document gives the
+PDS — and has to claim the handle back. The URL
 in the text gets a link facet (Bluesky does not link bare URLs by itself) and the
 post carries a link card built from the title and lead. The resulting
 `Bluesky:` value is a `bsky.app` URL with the handle in it.
@@ -395,8 +398,13 @@ own section — "On the fediverse", "On Bluesky" — with Comments, Likes and Re
 under it. The Bluesky half is `input/js/bsky-comments.js`, written for this site
 rather than taken from a package so its markup is navigable with a screen reader:
 an `article` per reply, nested under the reply it answers, counts in words, line
-breaks kept. Like the fediverse widget it reads Bluesky's public API in the
-reader's browser.
+breaks kept. Like the fediverse widget it reads in the reader's browser, from
+the AppView named by `BlueskyAppView` in `settings.yml` — Bluesky's own by
+default. Any AppView serving the `app.bsky.*` read API without sign-in, with
+cross-origin requests allowed and the threads indexed, can replace it; that
+setting is the whole change. The `bsky.app` links (profiles, replies, the
+`Bluesky:` URLs themselves) point at Bluesky's web app, not the AppView, and
+keep working either way.
 
 Adding a network later means adding one entry to the `$Targets` table at the top
 of the script: its front matter key, its token variable, and how to post.

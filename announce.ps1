@@ -223,13 +223,37 @@ function Format-Announcement {
 
 $atprotoHandle = if ($settings -match '(?m)^AtprotoHandle:\s*(.+)$') { $Matches[1].Trim() } else { $null }
 
+# Handle to DID the way the protocol defines it, not by asking an AppView: the
+# handle's own https://HANDLE/.well-known/atproto-did, then its _atproto DNS TXT
+# record. Resolve-DnsName only exists on Windows, so on Linux (CI) the web file
+# is the only route -- which is how this site's handle is set up anyway.
+function Resolve-AtprotoHandle {
+    param([string]$Handle)
+    try {
+        $did = ([string](Invoke-RestMethod -Uri "https://$Handle/.well-known/atproto-did" -TimeoutSec 30)).Trim()
+        if ($did -like 'did:*') { return $did }
+    }
+    catch { }
+    if (Get-Command Resolve-DnsName -ErrorAction SilentlyContinue) {
+        $txt = Resolve-DnsName -Name "_atproto.$Handle" -Type TXT -ErrorAction SilentlyContinue |
+            ForEach-Object { $_.Strings } | Where-Object { $_ -like 'did=*' } | Select-Object -First 1
+        if ($txt) { return $txt.Substring(4) }
+    }
+    throw "Could not resolve $Handle to a DID: no https://$Handle/.well-known/atproto-did and no usable _atproto TXT record."
+}
+
 # The PDS is whichever server the DID document names, as in standardsite.ps1.
+# With -Handle, also check the DID document claims that handle back; a handle is
+# only valid when both directions agree.
 function Resolve-AtprotoPds {
-    param([string]$Did)
+    param([string]$Did, [string]$Handle)
     $docUrl = if ($Did -like 'did:plc:*') { "https://plc.directory/$Did" }
               elseif ($Did -like 'did:web:*') { "https://$($Did.Substring('did:web:'.Length))/.well-known/did.json" }
               else { throw "Unsupported DID method: $Did" }
     $doc = Invoke-RestMethod -Uri $docUrl -TimeoutSec 30
+    if ($Handle -and @($doc.alsoKnownAs) -notcontains "at://$Handle") {
+        throw "$Handle points at $Did, but that DID does not claim $Handle."
+    }
     $service = @($doc.service) | Where-Object { $_.id -like '*#atproto_pds' } | Select-Object -First 1
     if (-not $service) { throw "$Did names no atproto_pds service." }
     return ([string]$service.serviceEndpoint).TrimEnd('/')
@@ -242,10 +266,8 @@ function Publish-BlueskyPost {
     param([string]$Text, $Post)
 
     if (-not $atprotoHandle) { throw 'AtprotoHandle is not set in settings.yml.' }
-    $resolved = Invoke-RestMethod -TimeoutSec 30 `
-        -Uri "https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=$([uri]::EscapeDataString($atprotoHandle))"
-    $did = [string]$resolved.did
-    $pds = Resolve-AtprotoPds $did
+    $did = Resolve-AtprotoHandle $atprotoHandle
+    $pds = Resolve-AtprotoPds $did -Handle $atprotoHandle
 
     $session = Invoke-RestMethod -Method Post -Uri "$pds/xrpc/com.atproto.server.createSession" -TimeoutSec 60 `
         -ContentType 'application/json; charset=utf-8' `
