@@ -1060,5 +1060,13 @@
       "status": 0,
       "at": "2026-10-21T15:44:40.3575412Z"
     }
+  },
+  "https://stuff.interfree.ca/2026/10/22/comments-from-bluesky.html": {
+    "https://github.com/fastfinge/stuff": {
+      "at": "2026-10-22T15:50:51.5849265Z",
+      "endpoint": null,
+      "status": 0,
+      "note": "no endpoint advertised"
+    }
   }
 }
