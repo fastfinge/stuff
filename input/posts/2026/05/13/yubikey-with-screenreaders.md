@@ -4,6 +4,7 @@ Lead: I couldn't find any real information about how Yubikeys work with screen r
 Tags:
 - articles
 Fedi: https://fed.interfree.ca/notes/am83nnbz61vvzt9m
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3mlr7lxbtms2h
 ---
 
 Before we get into it, we should start with the basics for those who are unaware. What is a Yubikey, and why do you want one?

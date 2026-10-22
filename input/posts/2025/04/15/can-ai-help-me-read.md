@@ -5,6 +5,7 @@ Tags:
 - articles
 Image: img/66debd1fc55022d58fc19ea83debf6ae.png
 Fedi: https://fed.interfree.ca/notes/a6mw9eplvx9pyea1
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lmvdq56ch22n
 ---
 I've always loved golden-age pulp science fiction.  Unfortunately, the scans of magazines like astounding are generally of poor enough quality that standard OCR struggles with them.  
 

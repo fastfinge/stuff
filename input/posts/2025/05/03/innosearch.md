@@ -4,6 +4,7 @@ Tags:
 - reviews
 Lead: Innosearch is an accessible shopping solution, powered by AI. But it's the human support that makes it worthwhile.
 Fedi: https://fed.interfree.ca/notes/a7c2bealmgwe54hf
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lobuorwc622a
 ---
 
 If you follow me on the fediverse, you may have scene my [thread](https://fed.interfree.ca/notes/a626xga2bb2ee5re) about trying [innosearch](https://www.innosearch.ai).  They've done a lot of marketing to the blindness community, including promotions with [audiogames](https://forum.audiogames.net), and events with [Freedom Scientific](https://www.freedomscientific.com).  In trying them, I wanted to know three things:

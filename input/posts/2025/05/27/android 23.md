@@ -4,6 +4,7 @@ Tags:
 - articles
 Lead: Where I become frustrated with the out of the box experience and try to improve things.
 Fedi: https://fed.interfree.ca/notes/a8a6lwhu5bkap44a
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lq5vzsmgj22q
 ---
 
 On Day two with my android phone, I started bright and early, determined to move a bunch of accounts over and set up my apps.  I got my email set up, Reddit logged in, and...after about two hours, I knew I *had* to find a better way if Android was going to be viable for my use cases.

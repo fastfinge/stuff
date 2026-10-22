@@ -4,6 +4,7 @@ Tags:
 - articles
 Lead: Wherein I talk about what I tried to buy, and why I don't have it yet.
 Fedi: https://fed.interfree.ca/notes/a836fbosejd98f01
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lprlpuklqk2v
 ---
 In a recent [State of Mobile App Accessibility Survey](https://arctouch.com/state-of-mobile-app-accessibility), (disclosure: I, and the organization where I work, had some involvement in this survey) Android apps scored as slightly more accessible overall than IOS apps.  As a life-long IOS user, since the iPhone 3GS, I found this finding slightly surprising.  Of course, as with any result that goes against our preconvictions, it could be easily rationalized away:
 * perhaps Android users use fewer apps

@@ -5,6 +5,7 @@ Tags:
 - articles
 Image: img/cb31c693d8d74b33f7a8340307fbc175.png
 Fedi: https://fed.interfree.ca/notes/a6h2or0xr1k5kyyx
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lmldbvu6xs24
 ---
 Note: the sounds in this entry do not contain actual words, and often are not identifiable sounds. This post is inaccessible to the Deaf or Hard of Hearing. I have done my best to describe the sounds in the entry itself, however I recognize that any level of inaccessibility to any person for any reason is unacceptable.  In an attempt to offset this, I have donated $75 to the [Canadian Cultural Society of the Deaf](https://deafculturecentre.ca/donate). I strongly encourage anyone who listens to any of the sounds on this page to do the same.  
 

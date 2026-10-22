@@ -5,6 +5,7 @@ Tags:
 - reviews
 Image: img/97c0f49da21352dda77f8e57ac2ae7af.png
 Fedi: https://fed.interfree.ca/notes/a6jjgjcitv068smc
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lmpo7g46f224
 ---
 I've been a happy customer of the [Amplifi Alien](https://amplifi.com/alien) routers since they were released in December 2019.  However, they haven't received an upgrade since then; that means they have no support for Wifi 6E or Wifi 7.  So when one of my alien units broke, I decided it was time to invest in an entirely new mesh system now that I own Wifi 7 capable devices.  If you're looking for a used router on the cheap, though, I would strongly advise keeping an eye out for Amplifi Alien units. As early adopters like me begin to upgrade, I would expect to see a lot of perfectly good Wifi6 mesh router systems going for bargain prices.  The app is decently accessible, they make sounds when they reboot or lose connection, and they're rock solid once you get them going.  The thing that kills them is the fan. My routers go in a corner somewhere and get forgotten.  So as the fans got clogged with dust, I failed to notice until the router overheated and stopped working. If you're a better owner than I am, the fan openings are obvious and easy to clean.  
 

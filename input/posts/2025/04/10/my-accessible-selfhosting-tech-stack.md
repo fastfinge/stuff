@@ -5,6 +5,7 @@ Image: img/5302475.png
 Tags:
 - articles
 Fedi: https://fed.interfree.ca/notes/a6f9an4mad53ffxy
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lmi4yn7ghk24
 ---
 I've been hosting services for myself and others for over 25 years now: starting on IIS6, moving to Windows Server, eventually to Debian, and now to an entirely dockerized stack.  Self-hosting allows me to control my destiny in a way that using cloud services run by others doesn't.  If an update causes screenreader issues, I can just not apply it. If I don't like the default themes, I can change them. In most cases, the projects I host are open-source, meaning I can contribute fixes myself, or write plugins to meet my specific accessibility needs.  In this article, I'll go over the tech choices I've currently made, why I made those choices, and how they're working out for me.  As it can be disappointing to set up and configure an app for hosting, only to find out it doesn't work with your screenreader, I thought it would be a good idea to document what I'm currently using.  If you're interested in taking the same control yourself, or just curious about the accessibility of the self-hosting landscape, I hope you'll find this post useful and informative.  
 

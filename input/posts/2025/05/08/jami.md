@@ -4,6 +4,7 @@ Tags:
 - articles
 Lead: Jami is a fully peer to peer chat application that supports text and video, but is only accessible on mobile.
 Fedi: https://fed.interfree.ca/notes/a7j0cp9bybbfj9am
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3loo3t7na5k2t
 ---
 
 ## Update ##

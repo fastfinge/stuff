@@ -5,6 +5,7 @@ Tags:
 - "reviews"
 Image: img/fe5e07aacbd0a21b8450caad785aa99d.png
 Fedi: https://fed.interfree.ca/notes/a6o4iheph4pphycg
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lmxqajfgjk2n
 ---
 <?# Book OL42459359W /?>
 

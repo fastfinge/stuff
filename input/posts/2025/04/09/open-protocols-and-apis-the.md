@@ -4,6 +4,7 @@ Published: 2025-04-09
 Tags:
 - articles
 Fedi: https://fed.interfree.ca/notes/a6edp4mnqqkegz8z
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lmgivqats224
 ---
 
 Note! the following are my personal opinions, and should not necessarily be taken as the opinion of my employer.

@@ -5,6 +5,7 @@ Tags:
 - articles
 image: img/a370780197b09a96e0bf16f61e60806c.png
 Fedi: https://fed.interfree.ca/notes/a6kxzenyd2m6wh23
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lms533jpx22n
 ---
 Whenever any cutting-edge technology hits the mainstream, there's an explosion of creativity as people experiment with designs, try to find solutions for old problems, and create new solutions looking for a problem.  This is especially true in the accessibility industry.  It happened with the internet, web 2.0, the blockchain, and now it's AI's turn.  Three quarters of these products disappear without ever gaining adoption.  But the ones that survive change the world forever.  
 

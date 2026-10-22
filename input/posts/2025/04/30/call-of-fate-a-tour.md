@@ -4,6 +4,7 @@ Published: 2025-04-30
 Tags:
 - reviews
 Fedi: https://fed.interfree.ca/notes/a77rsl3x59d4y00j
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lo2cpr44as27
 ---
 [Call of Fate](https://www.appshubforvisuallyimpaired.com/call-of-fate) <span itemscope itemtype="https://schema.org/SoftwareApplication"> is Prudence's second audio game released on <span itemprop="operatingSystem">Android</span> and <span itemprop="operatingSystem">IOS</span> widely available to the western English speaking market; the first was Ranger Legend.  Unfortunately, I found Ranger Legend to be confusing, difficult, and slightly buggy.  I'm pleased to say that despite some flaws, <span itemprop="name">Call Of Fate</spam> is a much better outing!</span>
 

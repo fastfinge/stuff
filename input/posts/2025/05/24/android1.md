@@ -4,6 +4,7 @@ Tags:
 - articles
 Lead: The phone arrives, and I unbox and turn it on.
 Fedi: https://fed.interfree.ca/notes/a85vgs1uj2afmbaq
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lpxig7qank2d
 ---
 In spite of my Google payment problems, my new Pixel 9A arrived late in the day yesterday.  Unfortunately, I had a dinner to get to, and some shopping to accomplish, so I didn't get to spend the entire evening with the phone.  
 

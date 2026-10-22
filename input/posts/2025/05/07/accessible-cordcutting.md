@@ -2,6 +2,7 @@ Title: My Accessible Cordcutting Solution
 Published: 2025-05-07
 Lead: I haven't paid for a cable subscription for years. This is what works for me as a blind TV watcher.
 Fedi: https://fed.interfree.ca/notes/a7hq7n1zr55aghx7
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3loltk6ccdk2u
 ---
 Unfortunately, if you're a blind consumer who wants to enjoy TV content, far too many of the online cordcutting solutions don't take accessibility into account.  While online-first services like Netflix and Disney are pretty good about offering audio description these days, livestreaming, IPTV, cloud PVR, and video on demand services for TV based broadcasts are a different story.  Even if audio description was there in the original broadcast, it's often missing in the online stream, and unavailable in the video on demand archive. That's assuming the online website is even screenreader accessible in the first place.
 

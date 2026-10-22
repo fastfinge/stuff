@@ -4,6 +4,7 @@ Tags:
 - articles
 Lead: I complete Android customizations bringing me what feels like equality with IOS, at least for the base system.  
 Fedi: https://fed.interfree.ca/notes/a8c8wbwy2xjw4npn
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lqbk72zwrs24
 ---
 Unfortunately, this morning I woke up to an unhappy surprise when I picked up my phone: Android had disabled full access for Jieshuo. Again. Why does this keep happening? It's possible to get it back on without sighted help, but it's still massively annoying.  If the Android customizability is going to count as an advantage for the OS, the customizations you make really do need to stick for more than about 48 hours at a time. If I had had a medical emergency in the middle of the night, and picked up my phone to call for help, I'd have been utterly out of luck. Fiddling to get the screen reader back takes about ten minutes. In an actual life and death emergency, that's way too long to be survivable.  
 

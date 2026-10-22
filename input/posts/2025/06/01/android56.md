@@ -4,6 +4,7 @@ Tags:
 - articles
 Lead: Probably the final entry in this particular series.
 Fedi: https://fed.interfree.ca/notes/a8hhjhcc73qkxxp3
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lqkrbtltbk2r
 ---
 I'm not saying I'll never write about Android ever again, of course. But at this point it feels like I have a working (and thus uninteresting) setup that seems unlikely to change in the near future.
 

@@ -4,6 +4,7 @@ Lead: My adventures in continuing to fiddle with my blog.
 Tags:
 - blog meta
 Fedi: https://fed.interfree.ca/notes/a79415kevtrb3c08
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lo4p62ldp22y
 ---
 Yes, that's right! I've become one of those tiresome middle-aged men who is constantly fiddling with their blog, and insists on telling you about it.  I'm sorry. 
 

@@ -4,6 +4,7 @@ Tags:
 - reviews
 Lead: It's been quiet here for a couple of weeks because a project I was hoping to begin fell through.
 Fedi: https://fed.interfree.ca/notes/a9b94kwy7pmb0z02
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3ls75ptuubc25
 ---
 Updade: I heard back from talking flight monitor about eight hours after publishing this post. They sent a dropbox link to download the software; unfortunately, I get a message that says I don't have permission to access the content when clicking it.  They also let me know that they can't send email to iCloud for whatever reason.  
 

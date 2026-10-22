@@ -4,6 +4,7 @@ Tags:
 - articles
 Lead: These are some of the weapons that are working for me in my on-going battle against insomnia.
 Fedi: https://fed.interfree.ca/notes/a7agwx6uepkfem0k
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lo72snwtic23
 ---
 
 Insomnia has been a struggle for me all of my life; ever since I was young, I've struggled with shifting sleep schedules and white nights.  I'm far from alone. [Studies show](https://pmc.ncbi.nlm.nih.gov/articles/PMC5741691) that as many as eighty percent of blind people struggle with chronic insomnia and conditions like Non-24 hour sleep disorder.  Far too often, the problem is "treated" by [Zolpidem](https://my.clevelandclinic.org/health/drugs/20871-zolpidem-tablets) or other powerful prescription sleeping pills. Unfortunately, these pills can be addictive, require ever increasing dosages, and have [side effects](https://pmc.ncbi.nlm.nih.gov/articles/PMC4689974).  After years of trying countless solutions, I've finally got a collection of strategies that keep me sleeping on schedule about three quarters of the time without prescriptions.  

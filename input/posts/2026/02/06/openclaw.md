@@ -4,6 +4,7 @@ Lead: Of course I have to write about openclaw.
 tags:
 - articles 
 Fedi: https://fed.interfree.ca/notes/aiekzakyqg22jtwc
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3me76lqnkk222
 ---
 If you've never heard of [Openclaw](https://openclaw.ai) (formerly Moltbot, formerly Clawdbot), it's an open source AI tool that can actually do things in the real world. And sometimes, the things it does are actually the things you want it to do! Unfortunately, "sometimes" is doing a lot of heavy lifting in that sentence. Is Openclaw worth the massive hype it's received from people like Andrej Karpathy? I'll go over my experiences in this article.
 

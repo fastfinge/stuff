@@ -4,6 +4,7 @@ Published: 2025-04-24
 Tags:
 - reviews
 Fedi: https://fed.interfree.ca/notes/a70gsp0p6a31qpd6
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3lnlboytnvs2n
 ---
 <?# Book OL42557111W /?>
 
