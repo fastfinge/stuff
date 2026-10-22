@@ -14,7 +14,7 @@ concurrency:
   group: deploy
   cancel-in-progress: false
 
-# The announce step commits the fediverse post URLs back to the repo.
+# The announce step commits the announced post URLs back to the repo.
 permissions:
   contents: write
 
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           # Full history: the announce step rebases onto main before pushing the
-          # fediverse URLs back, and a shallow clone cannot rebase.
+          # announced post URLs back, and a shallow clone cannot rebase.
           fetch-depth: 0
 
       - uses: actions/setup-dotnet@v4
@@ -77,18 +77,20 @@ jobs:
       # URL that is not live yet, so that the link in the fediverse post -- which
       # is permanent and cannot be edited -- always resolves.
       #
-      # A post opts in with "Announce: fedi" in its front matter. Nothing else is
-      # touched, and a post that already has its Fedi: key is skipped, so this is
-      # a no-op on the daily schedule run.
-      - name: Announce new posts on the fediverse
+      # A post opts in with "Announce: [fedi, bluesky]" in its front matter.
+      # Nothing else is touched, and a post that already has its Fedi: or
+      # Bluesky: key is skipped there, so this is a no-op on the daily schedule
+      # run. A network whose secret is missing is skipped with a warning.
+      - name: Announce new posts on the fediverse and Bluesky
         if: github.event_name != 'pull_request'
         id: announce
         shell: pwsh
         env:
           FEDI_TOKEN: ${{ secrets.FEDI_TOKEN }}
+          ATPROTO_APP_PASSWORD: ${{ secrets.ATPROTO_APP_PASSWORD }}
         run: |
-          if (-not $env:FEDI_TOKEN) {
-            Write-Host 'No FEDI_TOKEN secret set; skipping the announce step.'
+          if (-not $env:FEDI_TOKEN -and -not $env:ATPROTO_APP_PASSWORD) {
+            Write-Host 'Neither FEDI_TOKEN nor ATPROTO_APP_PASSWORD is set; skipping the announce step.'
             'announced=false' >> $env:GITHUB_OUTPUT
             exit 0
           }
@@ -107,7 +109,7 @@ jobs:
       # If this push is lost the URLs are lost with it, and the next run posts
       # duplicates -- so it retries, and on failure prints the URLs into the log
       # where a human can recover them.
-      - name: Record the fediverse URLs
+      - name: Record the announced post URLs
         if: steps.announce.outputs.announced == 'true'
         run: |
           git config user.name 'github-actions[bot]'
@@ -117,7 +119,7 @@ jobs:
           git add -u -- input/posts
           # [skip ci] because this job redeploys below; without it the push would
           # start a second, redundant run.
-          git commit -m 'Record fediverse post URLs from announce [skip ci]'
+          git commit -m 'Record announced post URLs [skip ci]'
           for attempt in 1 2 3; do
             if git pull --rebase --autostash origin main && git push origin HEAD:main; then
               exit 0
@@ -125,13 +127,13 @@ jobs:
             echo "Push attempt $attempt failed; retrying"
             sleep 5
           done
-          echo "::error::Could not push the fediverse URLs. They are in the diff below. Add them to the front matter by hand before the next run, or announce.ps1 will post duplicates."
+          echo "::error::Could not push the announced post URLs. They are in the diff below. Add them to the front matter by hand before the next run, or announce.ps1 will post duplicates."
           git log -1 -p -- input/posts
           exit 1
 
-      # The pages built before announcing had no Fedi: value, so their comment
-      # and reaction widgets and their u-syndication link are missing. Rebuild.
-      - name: Rebuild with the fediverse URLs
+      # The pages built before announcing had no Fedi: or Bluesky: value, so their
+      # comment and reaction widgets and their u-syndication link are missing. Rebuild.
+      - name: Rebuild with the announced post URLs
         if: steps.announce.outputs.announced == 'true'
         run: dotnet run --configuration Release
 

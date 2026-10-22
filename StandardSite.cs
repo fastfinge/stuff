@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
 using Statiq.Common;
@@ -118,6 +119,35 @@ public static class StandardSite
             value >>= 5;
         }
         return new string(chars);
+    }
+
+    /// <summary>
+    /// The AT-URI of the Bluesky post announcing this one, from the bsky.app URL
+    /// announce.ps1 writes back as Bluesky:, or null when there is none. Only a
+    /// post by the publication's own account counts: that is the only kind
+    /// announce.ps1 writes, and the only repo standardsite.ps1 looks in for the
+    /// CID that bskyPostRef also needs.
+    /// </summary>
+    public static string? BlueskyPostUri(IDocument document, IExecutionContext context)
+    {
+        string? publication = PublicationUri(context);
+        string url = document.GetString("Bluesky");
+        if (publication is null || string.IsNullOrWhiteSpace(url))
+        {
+            return null;
+        }
+
+        Match match = Regex.Match(url.Trim(), @"^https://bsky\.app/profile/([^/]+)/post/([^/?#]+)$");
+        string did = Did(publication);
+        if (!match.Success
+            || !(match.Groups[1].Value == did
+                || string.Equals(match.Groups[1].Value, context.GetString("AtprotoHandle"), StringComparison.OrdinalIgnoreCase)))
+        {
+            context.LogWarning(document, $"standard.site: Bluesky: {url} is not a post by this site's account; no bskyPostRef.");
+            return null;
+        }
+
+        return $"at://{did}/app.bsky.feed.post/{match.Groups[2].Value}";
     }
 
     /// <summary>The DID out of at://did/collection/rkey.</summary>
@@ -299,10 +329,14 @@ public class StandardSiteManifest : Module
                 record["tags"] = tags;
             }
 
+            // Not in the record itself: bskyPostRef is a strong ref, which needs
+            // the post's CID as well, and only the PDS knows that. standardsite.ps1
+            // looks it up and adds the ref.
             documents.Add(new
             {
                 rkey = StandardSite.DocumentKey(input),
                 uri = StandardSite.DocumentUri(input, context),
+                bskyPost = StandardSite.BlueskyPostUri(input, context),
                 record,
             });
         }
@@ -333,6 +367,9 @@ public class StandardSiteManifest : Module
             JsonSerializer.Serialize(manifest, new JsonSerializerOptions
             {
                 WriteIndented = true,
+                // A post with no Bluesky announcement has no bskyPost at all,
+                // rather than a null one.
+                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
                 // Keep apostrophes and non-ASCII readable in the file; it is only
                 // ever read back as JSON, never embedded in HTML.
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,

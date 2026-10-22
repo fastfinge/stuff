@@ -14,9 +14,15 @@
         Announce: [fedi, bluesky]
 
     Each target records the resulting post URL under its own front matter key
-    (fedi -> Fedi:), which is both what the comment widget reads and how this
-    script knows the post has already been announced there. A target that
-    already has its key is skipped, so re-running is safe.
+    (fedi -> Fedi:, bluesky -> Bluesky:), which is both what the comment widget
+    reads and how this script knows the post has already been announced there.
+    A target that already has its key is skipped, so re-running is safe. A target
+    whose credentials are not set is skipped with a warning, and picked up by the
+    next run that has them.
+
+    fedi needs FEDI_TOKEN. bluesky posts from the AtprotoHandle account in
+    settings.yml and needs ATPROTO_APP_PASSWORD, the same app password
+    standardsite.ps1 uses.
 
     Dry run by default: it prints what it would post and changes nothing.
     Pass -Publish to actually post.
@@ -51,13 +57,17 @@ Set-Location -LiteralPath $PSScriptRoot
 
 # --- Targets -------------------------------------------------------------
 # To add a network later, add an entry here and implement its Post block.
-# UrlKey is the front matter key holding the resulting URL.
+# UrlKey is the front matter key holding the resulting URL. Limit is the
+# network's post length in graphemes; the text is cut to fit, never the URL.
+# Post gets the text and the post's Title, Lead and Url, and returns the URL of
+# what it posted.
 $Targets = @{
     fedi = @{
         UrlKey   = 'Fedi'
         TokenVar = 'FEDI_TOKEN'
+        Limit    = 480
         Post     = {
-            param($text)
+            param($text, $post)
             $instance = if ($env:FEDI_INSTANCE) { $env:FEDI_INSTANCE } else { 'https://fed.interfree.ca' }
             $body = @{ status = $text; visibility = 'public' } | ConvertTo-Json -Compress
             $response = Invoke-RestMethod -Method Post -Uri "$instance/api/v1/statuses" `
@@ -66,6 +76,15 @@ $Targets = @{
                 -Body ([System.Text.Encoding]::UTF8.GetBytes($body))
             if (-not $response.url) { throw 'The server response contained no url field.' }
             return $response.url
+        }
+    }
+    bluesky = @{
+        UrlKey   = 'Bluesky'
+        TokenVar = 'ATPROTO_APP_PASSWORD'
+        Limit    = 300
+        Post     = {
+            param($text, $post)
+            return Publish-BlueskyPost $text $post
         }
     }
 }
@@ -167,6 +186,111 @@ function Get-PostUrl {
     return "${scheme}://${host_}/$datePath/$slug.html"
 }
 
+# --- Text ----------------------------------------------------------------
+
+# Title, lead and URL, one paragraph each, cut to Limit graphemes. The lead is
+# shortened first and then the title; the URL never is, because a truncated link
+# is a broken one in a post that cannot be edited afterwards. Graphemes rather
+# than chars, because that is what Bluesky counts, and an emoji or accented
+# letter is more than one char.
+function Format-Announcement {
+    param([string]$Title, [string]$Lead, [string]$Url, [int]$Limit)
+
+    function Measure-Text([string]$s) { ([System.Globalization.StringInfo]::new($s)).LengthInTextElements }
+    function Limit-Text([string]$s, [int]$max) {
+        $info = [System.Globalization.StringInfo]::new($s)
+        if ($info.LengthInTextElements -le $max) { return $s }
+        if ($max -lt 2) { return '' }
+        return $info.SubstringByTextElements(0, $max - 1).TrimEnd() + [char]0x2026
+    }
+    function Join-Parts([string[]]$parts) { (@($parts) | Where-Object { $_ }) -join "`n`n" }
+
+    $text = Join-Parts @($Title, $Lead, $Url)
+    $over = (Measure-Text $text) - $Limit
+    if ($over -le 0) { return $text }
+
+    if ($Lead) {
+        $Lead = Limit-Text $Lead ((Measure-Text $Lead) - $over)
+        $text = Join-Parts @($Title, $Lead, $Url)
+        $over = (Measure-Text $text) - $Limit
+        if ($over -le 0) { return $text }
+    }
+    $Title = Limit-Text $Title ((Measure-Text $Title) - $over)
+    return Join-Parts @($Title, $Lead, $Url)
+}
+
+# --- Bluesky -------------------------------------------------------------
+
+$atprotoHandle = if ($settings -match '(?m)^AtprotoHandle:\s*(.+)$') { $Matches[1].Trim() } else { $null }
+
+# The PDS is whichever server the DID document names, as in standardsite.ps1.
+function Resolve-AtprotoPds {
+    param([string]$Did)
+    $docUrl = if ($Did -like 'did:plc:*') { "https://plc.directory/$Did" }
+              elseif ($Did -like 'did:web:*') { "https://$($Did.Substring('did:web:'.Length))/.well-known/did.json" }
+              else { throw "Unsupported DID method: $Did" }
+    $doc = Invoke-RestMethod -Uri $docUrl -TimeoutSec 30
+    $service = @($doc.service) | Where-Object { $_.id -like '*#atproto_pds' } | Select-Object -First 1
+    if (-not $service) { throw "$Did names no atproto_pds service." }
+    return ([string]$service.serviceEndpoint).TrimEnd('/')
+}
+
+# Posts straight to the account's own PDS; Bluesky picks it up from there. The
+# URL in the text gets a link facet, because Bluesky does not turn URLs in post
+# text into links by itself, and an external embed so it shows as a link card.
+function Publish-BlueskyPost {
+    param([string]$Text, $Post)
+
+    if (-not $atprotoHandle) { throw 'AtprotoHandle is not set in settings.yml.' }
+    $resolved = Invoke-RestMethod -TimeoutSec 30 `
+        -Uri "https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=$([uri]::EscapeDataString($atprotoHandle))"
+    $did = [string]$resolved.did
+    $pds = Resolve-AtprotoPds $did
+
+    $session = Invoke-RestMethod -Method Post -Uri "$pds/xrpc/com.atproto.server.createSession" -TimeoutSec 60 `
+        -ContentType 'application/json; charset=utf-8' `
+        -Body ([System.Text.Encoding]::UTF8.GetBytes((@{ identifier = $atprotoHandle; password = $env:ATPROTO_APP_PASSWORD } | ConvertTo-Json -Compress)))
+    if ([string]$session.did -ne $did) {
+        throw "Signed in as $($session.did), but $atprotoHandle is $did."
+    }
+
+    $record = [ordered]@{
+        '$type'   = 'app.bsky.feed.post'
+        text      = $Text
+        createdAt = [DateTime]::UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss.fff'Z'", [cultureinfo]::InvariantCulture)
+        embed     = @{
+            '$type'  = 'app.bsky.embed.external'
+            external = @{
+                uri         = $Post.Url
+                title       = [string]$Post.Title
+                description = [string]$Post.Lead
+            }
+        }
+    }
+
+    # Facet offsets count UTF-8 bytes, not chars.
+    $at = $Text.LastIndexOf($Post.Url, [System.StringComparison]::Ordinal)
+    if ($at -ge 0) {
+        $start = [System.Text.Encoding]::UTF8.GetByteCount($Text.Substring(0, $at))
+        $record.facets = @(@{
+            index    = @{ byteStart = $start; byteEnd = $start + [System.Text.Encoding]::UTF8.GetByteCount($Post.Url) }
+            features = @(@{ '$type' = 'app.bsky.richtext.facet#link'; uri = $Post.Url })
+        })
+    }
+
+    $body = @{ repo = $did; collection = 'app.bsky.feed.post'; record = $record } | ConvertTo-Json -Depth 10 -Compress
+    $response = Invoke-RestMethod -Method Post -Uri "$pds/xrpc/com.atproto.repo.createRecord" -TimeoutSec 60 `
+        -Headers @{ Authorization = "Bearer $($session.accessJwt)" } `
+        -ContentType 'application/json; charset=utf-8' `
+        -Body ([System.Text.Encoding]::UTF8.GetBytes($body))
+    if (-not $response.uri) { throw 'The PDS response contained no uri field.' }
+
+    # The handle form rather than the DID: it is the URL anyone who finds the
+    # post on Bluesky sees, which is what original-post-discovery matches against.
+    $rkey = ([string]$response.uri).Split('/')[-1]
+    return "https://bsky.app/profile/$atprotoHandle/post/$rkey"
+}
+
 # --- Main ----------------------------------------------------------------
 
 if (-not $Publish) {
@@ -205,8 +329,7 @@ foreach ($file in $posts) {
             continue
         }
 
-        $text = (@($title, $lead, $url) | Where-Object { $_ }) -join "`n`n"
-        if ($text.Length -gt 480) { $text = $text.Substring(0, 477) + '...' }
+        $text = Format-Announcement -Title $title -Lead $lead -Url $url -Limit $def.Limit
 
         $pending++
         Write-Host ''
@@ -215,8 +338,12 @@ foreach ($file in $posts) {
 
         if (-not $Publish) { continue }
 
+        # Not fatal: one network's missing credentials should not hold back the
+        # others. The post keeps no key for this target, so the next run that
+        # has them announces it.
         if (-not (Get-Item "env:$($def.TokenVar)" -ErrorAction SilentlyContinue)) {
-            throw "$($def.TokenVar) is not set; cannot post to $name."
+            Write-Warning "$($def.TokenVar) is not set; not posting to $name this time."
+            continue
         }
 
         # Never announce a URL that is not live yet.
@@ -229,7 +356,7 @@ foreach ($file in $posts) {
             }
         }
 
-        $postedUrl = & $def.Post $text
+        $postedUrl = & $def.Post $text ([pscustomobject]@{ Title = $title; Lead = $lead; Url = $url })
 
         # Write back immediately. If this fails the URL is only in this console,
         # so surface it loudly rather than letting the next run post a duplicate.

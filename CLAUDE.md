@@ -121,15 +121,17 @@ pages whose source was deleted and `rclone sync` would push them live; CI avoids
 building from a fresh checkout.
 
 **Publishing has an ordering requirement.** `announce.ps1` refuses to announce a URL that is
-not live yet, and writes the resulting post URL back into front matter (`Fedi:`), which is
-what the comment and reaction widgets and the `u-syndication` link read. `webmention.ps1`
-comes last, because a receiver fetches the source URL to verify the link really exists. So
-the sequence for a new post is deploy, announce, deploy, `./webmention.ps1 -Send`.
+not live yet, and writes the resulting post URL back into front matter (`Fedi:`,
+`Bluesky:`), which is what the comment and reaction widgets and the `u-syndication` link
+read. `webmention.ps1` comes after the deploys, because a receiver fetches the source URL
+to verify the link really exists. So the sequence for a new post is deploy, announce,
+deploy, `./webmention.ps1 -Send`, then `./standardsite.ps1 -Publish` — which also has to
+follow the rebuild, because `Bluesky:` feeds each document's `bskyPostRef`.
 
 CI does that whole sequence itself, in one job, in that order — deploy, announce, commit the
-`Fedi:` values back to `main` with `[skip ci]`, rebuild, redeploy. Do not reorder those
-steps to "save a build": announcing before the deploy posts a permanent, uneditable
-fediverse link to a URL that 404s, and skipping the rebuild leaves the just-published post
+`Fedi:` and `Bluesky:` values back to `main` with `[skip ci]`, rebuild, redeploy. Do not
+reorder those steps to "save a build": announcing before the deploy posts a permanent,
+uneditable link to a URL that 404s, and skipping the rebuild leaves the just-published post
 without its comment widgets. The commit-back is gated on `git diff --name-only --
 input/posts`, so everything after it is skipped when nothing was announced. `webmention.ps1`
 runs last, after the redeploy, and commits `webmentions-sent.json` back the same way — a

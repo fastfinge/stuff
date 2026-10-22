@@ -10,11 +10,11 @@
         1. ./deploy.ps1            build, sanity check, sync, ping the hub
         2. ./announce.ps1 -Publish only after the deploy, because announce.ps1
                                    refuses to post a URL that is not live yet
-                                   and a fediverse post cannot be edited later
+                                   and an announcement cannot be edited later
         3. ./deploy.ps1            again, but only if something was announced:
-                                   the pages built in step 1 had no Fedi: value,
-                                   so they went out without their comment
-                                   widgets and u-syndication link
+                                   the pages built in step 1 had no Fedi: or
+                                   Bluesky: value, so they went out without
+                                   their comment widgets and u-syndication link
         4. ./webmention.ps1 -Send  after the deploys, because a receiver
                                    fetches the source URL to check the link is
                                    really there
@@ -23,8 +23,8 @@
                                    link back. Writes nothing to the repo.
 
     Use this when GitHub Actions is unavailable. Steps 2 and 4 both write state
-    into the repo -- the Fedi: keys and webmentions-sent.json -- and that state
-    is the only record that the work has been done. Commit it, or the next CI
+    into the repo -- the Fedi: and Bluesky: keys and webmentions-sent.json --
+    and that state is the only record that the work has been done. Commit it, or the next CI
     run posts a duplicate announcement and mentions the same links again. Pass
     -Commit to have this script commit it for you.
 
@@ -33,8 +33,8 @@
     fediverse post, no webmentions, no standard.site records, no commit.
 
 .PARAMETER Commit
-    Commit the Fedi: keys and webmentions-sent.json when finished. Commits
-    locally only -- pushing is left to you, because a push starts a CI run.
+    Commit the Fedi: and Bluesky: keys and webmentions-sent.json when
+    finished. Commits locally only -- pushing is left to you, because a push starts a CI run.
 
 .EXAMPLE
     ./publish.ps1 -DryRun    # walk through it, changing nothing
@@ -89,11 +89,16 @@ foreach ($tool in 'dotnet', 'rclone', 'git') {
 }
 
 # Mirrors the CI step: no token is not an error, it just means there is nothing
-# to announce with. Better to say so now than to fail between two deploys.
-$canAnnounce = [bool]$env:FEDI_TOKEN
-if (-not $canAnnounce) {
-    Write-Warning 'FEDI_TOKEN is not set; the announce step will be skipped.'
+# to announce with there. Better to say so now than to fail between two deploys.
+# announce.ps1 skips each network it has no credentials for, so the step only
+# needs skipping when it has none at all.
+if (-not $env:FEDI_TOKEN) {
+    Write-Warning 'FEDI_TOKEN is not set; nothing will be announced on the fediverse.'
 }
+if (-not $env:ATPROTO_APP_PASSWORD) {
+    Write-Warning 'ATPROTO_APP_PASSWORD is not set; nothing will be announced on Bluesky.'
+}
+$canAnnounce = [bool]$env:FEDI_TOKEN -or [bool]$env:ATPROTO_APP_PASSWORD
 
 # Same again for standard.site: without the app password, step 5 only shows
 # what it would change.
@@ -113,7 +118,7 @@ Write-Step 'Step 2/5: announce'
 $announced = $false
 
 if (-not $canAnnounce -and -not $DryRun) {
-    Write-Host 'Skipped: no FEDI_TOKEN.' -ForegroundColor DarkGray
+    Write-Host 'Skipped: neither FEDI_TOKEN nor ATPROTO_APP_PASSWORD is set.' -ForegroundColor DarkGray
 }
 elseif ($DryRun) {
     & $announce
@@ -129,8 +134,8 @@ else {
 Write-Step 'Step 3/5: redeploy'
 if ($announced) {
     # The just-published pages went out without their comment widgets and
-    # u-syndication link, because the Fedi: value did not exist when they were
-    # built. This is the build that gives them one.
+    # u-syndication link, because the Fedi: and Bluesky: values did not exist
+    # when they were built. This is the build that gives them one.
     & $deploy
 }
 else {
@@ -161,7 +166,7 @@ if ($DryRun) {
 }
 
 # Both of these are records that something irreversible has already happened.
-# Losing them is not a tidiness problem: an uncommitted Fedi: key means the next
+# Losing them is not a tidiness problem: an uncommitted Fedi: or Bluesky: key means the next
 # CI run announces the post a second time, and an uncommitted
 # webmentions-sent.json means it mentions every one of those links again.
 $dirty = @(git status --porcelain -- input/posts webmentions-sent.json |

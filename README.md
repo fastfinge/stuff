@@ -240,9 +240,10 @@ risk upsetting strict parsers, and no WebSub subscriber asks for RSS 1.0.
 
 ### original-post-discovery and syndication
 
-`announce.ps1` writes the URL of each copy back into the front matter (`Fedi:`).
-`_post-after-content.cshtml` renders those as `u-syndication`, so anyone who finds
-the copy on the fediverse can discover that this page is the original. The key
+`announce.ps1` writes the URL of each copy back into the front matter (`Fedi:`,
+`Bluesky:`). `_post-after-content.cshtml` renders those as `u-syndication`, so
+anyone who finds the copy on the fediverse or Bluesky can discover that this page
+is the original. The key
 names in that template match `announce.ps1`'s target table on purpose: adding a
 network is one row in each.
 
@@ -333,12 +334,14 @@ Required repository secrets:
   Use a deploy-only key, not your personal one.
 - `SFTP_KNOWN_HOSTS` — the server's host key, from `ssh-keyscan interfree.ca`.
 - `FEDI_TOKEN` — Iceshrimp access token, `write:statuses` scope only. See
-  "Announcing from CI". Optional: without it the announce step is skipped.
+  "Announcing from CI". Optional: without it nothing is announced on the fediverse.
 - `ATPROTO_APP_PASSWORD` — an app password for the `AtprotoHandle` account. See
-  "standard.site". Optional: without it CI only logs what it would change.
+  "standard.site". Used to announce on Bluesky as well. Optional: without it
+  nothing is announced on Bluesky and the standard.site step only logs what it
+  would change.
 
 The workflow needs `contents: write` (declared in the file) so the announce step
-can push the fediverse URLs back to `main`.
+can push the announced post URLs back to `main`.
 
 ## Announcing posts
 
@@ -348,12 +351,10 @@ A post opts in by listing targets in its front matter:
 Announce: fedi
 ```
 
-or, once there is more than one:
+or, for more than one:
 
 ```
-Announce:
-- fedi
-- bluesky
+Announce: [fedi, bluesky]
 ```
 
 Push it, and CI does the rest: it deploys, announces, commits the resulting URL
@@ -369,7 +370,11 @@ instead:
 is passed. For each target it:
 
 - skips the post if the target's URL key is already present (`fedi` records
-  `Fedi:`), so re-running is safe
+  `Fedi:`, `bluesky` records `Bluesky:`), so re-running is safe
+- skips a target whose credentials are not set, with a warning; the next run
+  that has them picks it up
+- cuts the text to the network's limit (480 graphemes for fedi, 300 for
+  Bluesky) by shortening the lead, then the title, and never the URL
 - refuses to announce a URL that is not live yet, so the link in the post always
   resolves — deploy first, then announce
 - writes the resulting URL back into the front matter immediately, and if that
@@ -379,11 +384,25 @@ is passed. For each target it:
 Set `FEDI_TOKEN` to an Iceshrimp access token with `write:statuses` scope.
 `FEDI_INSTANCE` overrides the default of `https://fed.interfree.ca`.
 
+`bluesky` posts as `AtprotoHandle` straight to its own PDS, signing in with
+`ATPROTO_APP_PASSWORD` — the same app password `standardsite.ps1` uses. The URL
+in the text gets a link facet (Bluesky does not link bare URLs by itself) and the
+post carries a link card built from the title and lead. The resulting
+`Bluesky:` value is a `bsky.app` URL with the handle in it.
+
+On the page, `_post-comments-fediverse.cshtml` gives each announced network its
+own section — "On the fediverse", "On Bluesky" — with Comments, Likes and Reposts
+under it. The Bluesky half is `input/js/bsky-comments.js`, written for this site
+rather than taken from a package so its markup is navigable with a screen reader:
+an `article` per reply, nested under the reply it answers, counts in words, line
+breaks kept. Like the fediverse widget it reads Bluesky's public API in the
+reader's browser.
+
 Adding a network later means adding one entry to the `$Targets` table at the top
 of the script: its front matter key, its token variable, and how to post.
 
 The usual order for a new post is deploy, announce, deploy, `./webmention.ps1
--Send`. The second deploy picks up the new `Fedi:` value and wires up the comment
+-Send`. The second deploy picks up the new `Fedi:` and `Bluesky:` values and wires up the comment
 and reaction widgets; the webmentions go last because a receiver fetches the post
 to verify the link, so the post has to be live and final first. CI runs that
 whole sequence itself, so this order only matters when deploying by hand.
@@ -395,8 +414,8 @@ order and for those reasons:
 
 1. build, sanity check, `rclone sync`
 2. `./announce.ps1 -Publish` — after the deploy, because the script refuses to
-   post a URL that is not live yet, and a fediverse post cannot be edited later
-3. commit the new `Fedi:` values back to `main` with `[skip ci]`
+   post a URL that is not live yet, and an announcement cannot be edited later
+3. commit the new `Fedi:` and `Bluesky:` values back to `main` with `[skip ci]`
 4. rebuild and redeploy, so the comment widgets and the `u-syndication` link
    appear on the pages that were just published without them
 5. ping the WebSub hub
@@ -409,16 +428,19 @@ on every deploy, including the daily schedule run — both are no-ops when
 nothing has changed, and step 6 has to see links that appear in a post edit,
 not just in a new post.
 
-Required repository secret:
+Repository secrets the announce step uses:
 
-- `FEDI_TOKEN` — an Iceshrimp access token with `write:statuses` scope. Without
-  it the announce step logs that it is skipping and the deploy proceeds
-  normally, so CI keeps working on a fork or before the secret is set.
+- `FEDI_TOKEN` — an Iceshrimp access token with `write:statuses` scope.
+- `ATPROTO_APP_PASSWORD` — for Bluesky; see "standard.site".
+
+Without either, the announce step logs that it is skipping and the deploy
+proceeds normally, so CI keeps working on a fork or before the secrets are set.
+With only one, the other network is skipped with a warning.
 
 The step that pushes the URLs back retries a rebase-and-push three times, and if
 it still cannot push it fails the job and prints the commit diff into the log.
 That matters: the URL is the only record that a post has already been announced,
-so losing it means the next run posts a duplicate. Recover the `Fedi:` lines from
+so losing it means the next run posts a duplicate. Recover the `Fedi:` and `Bluesky:` lines from
 the log and commit them by hand.
 
 Step 6 sends the webmentions, and it is last for the reason above: a receiver
@@ -507,6 +529,11 @@ down during a build, a review's book card falls back to a plain link, and that
 review's record is rewritten; it is rewritten back on the next good build.
 Harmless, but it is why an unexpected `update` can appear.
 
-Not done yet: the publication `icon` (needs a blob upload), `coverImage`, and
-`bskyPostRef`, which would link each document to a Bluesky post announcing it
-once there is a `bluesky` announce target.
+A post with a `Bluesky:` key gets a `bskyPostRef` on its document, linking the
+record to the Bluesky post that announced it, which is where its replies hang.
+The build puts the post's AT-URI in the manifest; the ref also needs the post's
+CID, which only the PDS knows, so the script reads the post record for it. A
+post that was announced after its record was written shows up as an `update`
+of `bskyPostRef`.
+
+Not done yet: the publication `icon` (needs a blob upload) and `coverImage`.

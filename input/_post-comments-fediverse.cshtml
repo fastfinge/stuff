@@ -1,34 +1,54 @@
 @*
-  The fediverse half of this only works once the post has been announced:
-  announce.ps1 posts it and writes the note's URL back as Fedi:. Until then
-  Document.GetString("Fedi") is empty, which used to render href="" -- a link
-  that looks like a link, is announced as a link, and silently reloads the page
-  -- plus three widgets pointed at nothing.
+  One section per network the post was announced on, then webmentions.
+
+  Each network's half only works once the post has been announced there:
+  announce.ps1 posts it and writes the post's URL back as Fedi: or Bluesky:.
+  Until then the key is empty, which used to render href="" -- a link that looks
+  like a link, is announced as a link, and silently reloads the page -- plus
+  three widgets pointed at nothing. So a section renders only when its key is set.
+
+  Each network is an h2 with Comments, Likes and Reposts as h3s under it, so the
+  same three headings under two networks stay distinguishable when navigating
+  by heading.
 
   Webmentions do not depend on any of that, so they render either way.
 *@
 @{
   string fedi = Document.GetString("Fedi");
+  string bluesky = Document.GetString("Bluesky");
 }
 @if (!string.IsNullOrWhiteSpace(fedi))
 {
-  <h2>Comments</h2>
+  <h2>On the fediverse</h2>
   <p>Participate in the discussion: reply to <a href="@fedi">this post on the fediverse.</a></p>
+  <h3>Comments</h3>
   <div
     class="fediverse-comments"
     data-responses-to-url="@fedi"
     data-hide-root-comment="true"></div>
-  <h2>Likes</h2>
+  <h3>Likes</h3>
   <div
     class="fediverse-favourites-list"
     data-favourited-url="@fedi"
   ></div>
-  <h2>Reposts</h2>
+  <h3>Reposts</h3>
   <div
     class="fediverse-reblogged-list"
     data-reblogged-url="@fedi"
   ></div>
   <script src="/js/fediverse-comments.js"></script>
+}
+@if (!string.IsNullOrWhiteSpace(bluesky))
+{
+  <h2>On Bluesky</h2>
+  <p>Participate in the discussion: reply to <a href="@bluesky">this post on Bluesky.</a></p>
+  <h3>Comments</h3>
+  <div class="bsky-comments" data-bsky-replies="@bluesky"></div>
+  <h3>Likes</h3>
+  <div class="bsky-likes" data-bsky-likes="@bluesky"></div>
+  <h3>Reposts</h3>
+  <div class="bsky-reposts" data-bsky-reposts="@bluesky"></div>
+  <script src="/js/bsky-comments.js"></script>
 }
 <h2>Webmentions</h2>
 <div id="webmentions"></div>

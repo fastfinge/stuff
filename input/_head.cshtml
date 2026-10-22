@@ -81,6 +81,40 @@
   object-fit: cover;
 }
 
+/* Bluesky replies, likes and reposts, from js/bsky-comments.js. Replies nest
+   under the reply they answer; likes and reposts are a wrapping row of names. */
+.bsky-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+.bsky-comment {
+  margin: 1rem 0;
+}
+.bsky-handle,
+.bsky-comment-footer {
+  font-size: 0.875rem;
+  color: #495057;
+}
+.bsky-comment-content p {
+  margin: 0.5rem 0;
+}
+.bsky-replies {
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+  border-left: 0.125rem solid #dee2e6;
+}
+.bsky-accounts {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
 /* Book shortcode. flex-wrap rather than a breakpoint, so the cover drops above
    the details on a narrow screen or at a large text size without a media query. */
 .booksnip {

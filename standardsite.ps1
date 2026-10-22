@@ -11,7 +11,8 @@
 
         creates   documents for posts that have no record yet
         updates   documents whose title, description, tags or text have changed,
-                  so a proofreading fix or a mended link goes out by itself
+                  so a proofreading fix or a mended link goes out by itself, or
+                  that have been announced on Bluesky since (bskyPostRef)
         deletes   documents for posts that no longer exist at that path
         puts      the publication record, if it is missing or has changed
 
@@ -256,6 +257,27 @@ elseif ($r.Status -eq 400 -and [string]$r.Json['error'] -eq 'RecordNotFound') {
 }
 else {
     Assert-Ok $r 'Reading the publication record'
+}
+
+# bskyPostRef: a post announced on Bluesky links its document to that post, which
+# is where its Bluesky replies hang. The build knows the post's URI but a strong
+# ref needs its CID too, so read the post record for it. A post that cannot be
+# read is left without the ref this time, rather than with a wrong one.
+foreach ($doc in $documents) {
+    $bskyPost = [string]$doc['bskyPost']
+    if (-not $bskyPost) { continue }
+    $parts = $bskyPost.Substring('at://'.Length).Split('/')
+    $r = Invoke-Xrpc -Method Get -Nsid 'com.atproto.repo.getRecord' -Anonymous -Query @{
+        repo = $parts[0]; collection = $parts[1]; rkey = $parts[2]
+    }
+    if ($r.Status -ne 200 -or -not $r.Json['cid']) {
+        Write-Warning "$($doc['record']['path']) : could not read $bskyPost (HTTP $($r.Status)); no bskyPostRef this run."
+        continue
+    }
+    $ref = [System.Text.Json.Nodes.JsonObject]::new()
+    $ref['uri'] = [string]$r.Json['uri']
+    $ref['cid'] = [string]$r.Json['cid']
+    $doc['record']['bskyPostRef'] = $ref
 }
 
 $wantedKeys = @{}
