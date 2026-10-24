@@ -1068,5 +1068,19 @@
       "status": 0,
       "note": "no endpoint advertised"
     }
+  },
+  "https://stuff.interfree.ca/2026/10/24/skyscraper-review.html": {
+    "https://getskyscraper.com/": {
+      "note": "no endpoint advertised",
+      "status": 0,
+      "at": "2026-10-24T13:22:38.8321479Z",
+      "endpoint": null
+    },
+    "https://apps.apple.com/us/app/skyscraper-social/id6754198379": {
+      "note": "no endpoint advertised",
+      "status": 0,
+      "at": "2026-10-24T13:22:38.8321479Z",
+      "endpoint": null
+    }
   }
 }
