@@ -5,6 +5,8 @@ Tags:
 Announce: [bluesky, fedi]
 Lead: Skyscraper is an app that supports Bluesky, Mastodon, RSS, and standard.site in a single app that runs natively on IOS, Mac, Apple Watch, and more. But can it replace all the different apps I use for these purposes?
 
+Bluesky: https://bsky.app/profile/fastfinge.interfree.ca/post/3mymrxdvkqc2d
+Fedi: https://fed.interfree.ca/notes/aspzsbd2nqpvk8w3
 ---
 Whenever I hear about an app that promises to perform a ton of different, specialized functions, all in one interface, I get a bit worried.  Most times, this means an app that does many things poorly, instead of one thing well. This is especially true in the social media ecosystem, where every network has different affordances and customs. I've tried a few of these all in one apps, and strongly disliked one or more things about them. But I keep being tempted to try the next one. It really would be helpful to combine multiple functions in to one, both from a usability perspective, and to save on subscription fees. 
 
